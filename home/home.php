@@ -119,57 +119,6 @@
                     <h6 class="app-icon-title mb-0">Learning Games</h6>
                 </div>
             </div>
-
-            <!-- Science Explorer -->
-            <div class="col-6 col-sm-4 col-md-3 col-lg-2">
-                <div class="app-icon-wrapper text-center">
-                    <div class="app-icon mb-2" style="background: linear-gradient(135deg, #06b6d4, #67e8f9);">
-                        <i class="bi bi-lightbulb-fill"></i>
-                    </div>
-                    <h6 class="app-icon-title mb-0">Science Explorer</h6>
-                </div>
-            </div>
-
-            <!-- Art Studio -->
-            <div class="col-6 col-sm-4 col-md-3 col-lg-2">
-                <div class="app-icon-wrapper text-center">
-                    <div class="app-icon mb-2" style="background: linear-gradient(135deg, #f97316, #fb923c);">
-                        <i class="bi bi-palette-fill"></i>
-                    </div>
-                    <h6 class="app-icon-title mb-0">Art Studio</h6>
-                </div>
-            </div>
-
-            <!-- Music Class -->
-            <div class="col-6 col-sm-4 col-md-3 col-lg-2">
-                <div class="app-icon-wrapper text-center">
-                    <div class="app-icon mb-2" style="background: linear-gradient(135deg, #8b5cf6, #a78bfa);">
-                        <i class="bi bi-music-note-beamed"></i>
-                    </div>
-                    <h6 class="app-icon-title mb-0">Music Class</h6>
-                </div>
-            </div>
-
-            <!-- Geography Quest -->
-            <div class="col-6 col-sm-4 col-md-3 col-lg-2">
-                <div class="app-icon-wrapper text-center">
-                    <div class="app-icon mb-2" style="background: linear-gradient(135deg, #14b8a6, #5eead4);">
-                        <i class="bi bi-globe"></i>
-                    </div>
-                    <h6 class="app-icon-title mb-0">Geography Quest</h6>
-                </div>
-            </div>
-
-            <!-- History Time -->
-            <div class="col-6 col-sm-4 col-md-3 col-lg-2">
-                <div class="app-icon-wrapper text-center">
-                    <div class="app-icon mb-2" style="background: linear-gradient(135deg, #84cc16, #a3e635);">
-                        <i class="bi bi-clock-history"></i>
-                    </div>
-                    <h6 class="app-icon-title mb-0">History Time</h6>
-                </div>
-            </div>
-
             <!-- Coding Fun -->
             <div class="col-6 col-sm-4 col-md-3 col-lg-2">
                 <div class="app-icon-wrapper text-center">
