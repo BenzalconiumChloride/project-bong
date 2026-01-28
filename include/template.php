@@ -24,11 +24,11 @@ $self = WEB_ROOT . 'index.php';
 </head>
 
 <?php
-$userId = $_SESSION['user_id'];
+// $userId = $_SESSION['user_id'];
 
-$USERDATA = $conn->prepare("SELECT * FROM bs_user WHERE is_deleted = 0 AND user_id = ?");
-$USERDATA->execute([$userId]);
-$USER_DATAFETCH = $USERDATA->fetch(PDO::FETCH_ASSOC);
+// $USERDATA = $conn->prepare("SELECT * FROM bs_user WHERE is_deleted = 0 AND user_id = ?");
+// $USERDATA->execute([$userId]);
+// $USER_DATAFETCH = $USERDATA->fetch(PDO::FETCH_ASSOC);
 
 ?>
 
