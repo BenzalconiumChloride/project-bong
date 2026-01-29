@@ -1,0 +1,965 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Health & Wellness Assistants | Your Digital Health Companions</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-color: #3b82f6;
+            --secondary-color: #10b981;
+            --accent-color: #8b5cf6;
+            --light-blue: #eff6ff;
+            --light-green: #ecfdf5;
+            --light-purple: #f5f3ff;
+            --light-orange: #fffbeb;
+            --dark-color: #1f2937;
+            --gray-color: #6b7280;
+            --wysa-color: #3b82f6;
+            --youper-color: #8b5cf6;
+            --chatgpt-health-color: #10b981;
+            --myfitnesspal-color: #f59e0b;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            color: var(--dark-color);
+            background-color: #ffffff;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            line-height: 1.2;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header - Health Focused */
+        header {
+            background: linear-gradient(135deg, #e0f2fe 0%, #f0f9ff 100%);
+            padding: 40px 0 60px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header-wave {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            overflow: hidden;
+            line-height: 0;
+        }
+
+        .header-wave svg {
+            position: relative;
+            display: block;
+            width: calc(100% + 1.3px);
+            height: 60px;
+        }
+
+        .header-wave .shape-fill {
+            fill: #ffffff;
+        }
+
+        .header-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+        }
+
+        .header-text {
+            flex: 1;
+            min-width: 300px;
+            max-width: 600px;
+        }
+
+        .header-text h1 {
+            font-size: 2.8rem;
+            margin-bottom: 15px;
+            color: var(--dark-color);
+        }
+
+        .header-text p {
+            font-size: 1.1rem;
+            color: var(--gray-color);
+            margin-bottom: 25px;
+        }
+
+        .health-tagline {
+            display: inline-block;
+            background: rgba(59, 130, 246, 0.1);
+            color: var(--primary-color);
+            padding: 8px 20px;
+            border-radius: 50px;
+            font-weight: 500;
+            margin-bottom: 20px;
+            font-size: 0.9rem;
+        }
+
+        .header-visual {
+            flex: 1;
+            min-width: 300px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .health-icons {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            max-width: 400px;
+        }
+
+        .health-icon {
+            width: 80px;
+            height: 80px;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+            color: white;
+            margin: 0 auto;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
+        }
+
+        .icon-mental { background-color: var(--wysa-color); }
+        .icon-mood { background-color: var(--youper-color); }
+        .icon-ai { background-color: var(--chatgpt-health-color); }
+        .icon-fitness { background-color: var(--myfitnesspal-color); }
+
+        /* AI Health Cards Section */
+        .ai-section {
+            padding: 80px 0 60px;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .section-title h2 {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            color: var(--dark-color);
+        }
+
+        .section-title p {
+            color: var(--gray-color);
+            max-width: 700px;
+            margin: 0 auto;
+            font-size: 1.1rem;
+        }
+
+        /* 2x2 Grid Layout */
+        .ai-cards {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+
+        .ai-card {
+            background: white;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+            border: 1px solid #e5e7eb;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .ai-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .ai-card-header {
+            padding: 30px 30px 20px;
+            position: relative;
+        }
+
+        .ai-icon {
+            width: 70px;
+            height: 70px;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+            font-size: 30px;
+            color: white;
+        }
+
+        .wysa .ai-icon { background-color: var(--wysa-color); }
+        .youper .ai-icon { background-color: var(--youper-color); }
+        .chatgpt-health .ai-icon { background-color: var(--chatgpt-health-color); }
+        .myfitnesspal .ai-icon { background-color: var(--myfitnesspal-color); }
+
+        .best-for {
+            display: inline-block;
+            padding: 5px 15px;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            margin-bottom: 15px;
+        }
+
+        .wysa .best-for { background-color: rgba(59, 130, 246, 0.1); color: var(--wysa-color); }
+        .youper .best-for { background-color: rgba(139, 92, 246, 0.1); color: var(--youper-color); }
+        .chatgpt-health .best-for { background-color: rgba(16, 185, 129, 0.1); color: var(--chatgpt-health-color); }
+        .myfitnesspal .best-for { background-color: rgba(245, 158, 11, 0.1); color: var(--myfitnesspal-color); }
+
+        .ai-card h3 {
+            font-size: 1.6rem;
+            margin-bottom: 10px;
+        }
+
+        .ai-card p {
+            color: var(--gray-color);
+            font-size: 1rem;
+        }
+
+        .ai-card-body {
+            padding: 0 30px 30px;
+            flex-grow: 1;
+        }
+
+        .ai-features {
+            list-style: none;
+            margin-bottom: 25px;
+        }
+
+        .ai-features li {
+            padding: 10px 0;
+            display: flex;
+            align-items: flex-start;
+        }
+
+        .ai-features i {
+            margin-right: 12px;
+            font-size: 0.9rem;
+            margin-top: 4px;
+            flex-shrink: 0;
+        }
+
+        .wysa .ai-features i { color: var(--wysa-color); }
+        .youper .ai-features i { color: var(--youper-color); }
+        .chatgpt-health .ai-features i { color: var(--chatgpt-health-color); }
+        .myfitnesspal .ai-features i { color: var(--myfitnesspal-color); }
+
+        .ai-app-links {
+            display: flex;
+            gap: 15px;
+            margin-top: auto;
+        }
+
+        .app-link {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 12px;
+            border-radius: 10px;
+            font-weight: 500;
+            font-size: 0.9rem;
+            text-decoration: none;
+            transition: all 0.2s ease;
+        }
+
+        .wysa .app-link { 
+            background-color: rgba(59, 130, 246, 0.1);
+            color: var(--wysa-color);
+        }
+        .wysa .app-link:hover {
+            background-color: var(--wysa-color);
+            color: white;
+        }
+
+        .youper .app-link { 
+            background-color: rgba(139, 92, 246, 0.1);
+            color: var(--youper-color);
+        }
+        .youper .app-link:hover {
+            background-color: var(--youper-color);
+            color: white;
+        }
+
+        .chatgpt-health .app-link { 
+            background-color: rgba(16, 185, 129, 0.1);
+            color: var(--chatgpt-health-color);
+        }
+        .chatgpt-health .app-link:hover {
+            background-color: var(--chatgpt-health-color);
+            color: white;
+        }
+
+        .myfitnesspal .app-link { 
+            background-color: rgba(245, 158, 11, 0.1);
+            color: var(--myfitnesspal-color);
+        }
+        .myfitnesspal .app-link:hover {
+            background-color: var(--myfitnesspal-color);
+            color: white;
+        }
+
+        /* Comparison Section */
+        .comparison-section {
+            background-color: #f9fafb;
+            padding: 80px 0;
+        }
+
+        .comparison-table {
+            overflow-x: auto;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+        }
+
+        thead {
+            background: linear-gradient(90deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            color: white;
+        }
+
+        th {
+            padding: 20px 15px;
+            text-align: left;
+            font-weight: 500;
+        }
+
+        .feature-name {
+            width: 200px;
+            font-weight: 500;
+        }
+
+        td {
+            padding: 18px 15px;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        .wysa-bg { background-color: rgba(59, 130, 246, 0.05); }
+        .youper-bg { background-color: rgba(139, 92, 246, 0.05); }
+        .chatgpt-health-bg { background-color: rgba(16, 185, 129, 0.05); }
+        .myfitnesspal-bg { background-color: rgba(245, 158, 11, 0.05); }
+
+        /* Health Focus Areas */
+        .focus-section {
+            padding: 80px 0 60px;
+        }
+
+        .focus-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .focus-card {
+            background: white;
+            border-radius: 16px;
+            padding: 30px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease;
+        }
+
+        .focus-card:hover {
+            transform: translateY(-8px);
+        }
+
+        .focus-icon {
+            width: 80px;
+            height: 80px;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            font-size: 32px;
+            color: white;
+        }
+
+        .focus-mental { background: var(--wysa-color); }
+        .focus-mood { background: var(--youper-color); }
+        .focus-ai { background: var(--chatgpt-health-color); }
+        .focus-fitness { background: var(--myfitnesspal-color); }
+
+        .focus-card h3 {
+            font-size: 1.4rem;
+            margin-bottom: 10px;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            padding: 80px 0;
+            text-align: center;
+            background: linear-gradient(135deg, var(--light-blue) 0%, var(--light-green) 100%);
+        }
+
+        .cta-content {
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .cta-content h2 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+
+        .cta-content p {
+            color: var(--gray-color);
+            margin-bottom: 40px;
+            font-size: 1.1rem;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: linear-gradient(90deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            color: white;
+            padding: 16px 40px;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 20px rgba(59, 130, 246, 0.2);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 30px rgba(59, 130, 246, 0.3);
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--dark-color);
+            color: white;
+            padding: 60px 0 30px;
+        }
+
+        .footer-content {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            margin-bottom: 40px;
+        }
+
+        .footer-logo {
+            flex: 1;
+            min-width: 300px;
+            margin-bottom: 30px;
+        }
+
+        .footer-logo h3 {
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+        }
+
+        .footer-logo p {
+            color: #d1d5db;
+            max-width: 300px;
+        }
+
+        .footer-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 50px;
+        }
+
+        .footer-column h4 {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            color: #f9fafb;
+        }
+
+        .footer-column ul {
+            list-style: none;
+        }
+
+        .footer-column li {
+            margin-bottom: 12px;
+        }
+
+        .footer-column a {
+            color: #d1d5db;
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+
+        .footer-column a:hover {
+            color: white;
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid #374151;
+            color: #9ca3af;
+            font-size: 0.9rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 992px) {
+            .header-content {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .header-text {
+                margin-bottom: 40px;
+            }
+            
+            .ai-cards {
+                grid-template-columns: 1fr;
+            }
+            
+            .footer-links {
+                gap: 30px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header-text h1 {
+                font-size: 2.2rem;
+            }
+            
+            .section-title h2 {
+                font-size: 2rem;
+            }
+            
+            .ai-card-header, .ai-card-body {
+                padding: 25px;
+            }
+            
+            .health-icons {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 15px;
+            }
+            
+            .health-icon {
+                width: 70px;
+                height: 70px;
+                font-size: 28px;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .header-text h1 {
+                font-size: 1.8rem;
+            }
+            
+            .section-title h2 {
+                font-size: 1.8rem;
+            }
+            
+            .cta-content h2 {
+                font-size: 2rem;
+            }
+            
+            .ai-app-links {
+                flex-direction: column;
+            }
+            
+            .footer-column {
+                min-width: 140px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header Section -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="header-text">
+                    <div class="health-tagline">Your Digital Health Companions</div>
+                    <h1>AI-Powered Health & Wellness Assistants</h1>
+                    <p>Discover how AI is revolutionizing mental and physical health support. From daily emotional support to fitness tracking, these intelligent assistants are here to help you achieve your wellness goals.</p>
+                </div>
+                <div class="header-visual">
+                    <div class="health-icons">
+                        <div class="health-icon icon-mental">
+                            <i class="fas fa-brain"></i>
+                        </div>
+                        <div class="health-icon icon-mood">
+                            <i class="fas fa-smile-beam"></i>
+                        </div>
+                        <div class="health-icon icon-ai">
+                            <i class="fas fa-robot"></i>
+                        </div>
+                        <div class="health-icon icon-fitness">
+                            <i class="fas fa-running"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="header-wave">
+            <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
+                <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z" class="shape-fill"></path>
+            </svg>
+        </div>
+    </header>
+
+    <!-- AI Health Cards Section -->
+    <section class="ai-section container">
+        <div class="section-title">
+            <h2>AI Health & Wellness Assistants</h2>
+            <p>Each platform offers unique approaches to mental and physical health support. Find the right companion for your wellness journey.</p>
+        </div>
+        
+        <div class="ai-cards">
+            <!-- Wysa Card -->
+            <div class="ai-card wysa">
+                <div class="ai-card-header">
+                    <div class="ai-icon">
+                        <i class="fas fa-robot"></i>
+                    </div>
+                    <div class="best-for">Best for Daily Support</div>
+                    <h3>Wysa</h3>
+                    <p>An AI-powered mental health chatbot that provides emotional support through conversations and therapeutic tools.</p>
+                </div>
+                <div class="ai-card-body">
+                    <ul class="ai-features">
+                        <li><i class="fas fa-check-circle"></i> 24/7 anonymous emotional support chatbot</li>
+                        <li><i class="fas fa-check-circle"></i> Evidence-based therapeutic techniques (CBT, DBT, mindfulness)</li>
+                        <li><i class="fas fa-check-circle"></i> Mood tracking and journaling features</li>
+                        <li><i class="fas fa-check-circle"></i> Tools for anxiety, depression, and stress management</li>
+                    </ul>
+                    <div class="ai-app-links">
+                        <a href="#" class="app-link"><i class="fas fa-mobile-alt"></i> App Store</a>
+                        <a href="#" class="app-link"><i class="fab fa-google-play"></i> Google Play</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Youper Card -->
+            <div class="ai-card youper">
+                <div class="ai-card-header">
+                    <div class="ai-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <div class="best-for">Best for Mood Insights</div>
+                    <h3>Youper</h3>
+                    <p>An emotional health assistant that uses AI to provide personalized insights and therapy techniques.</p>
+                </div>
+                <div class="ai-card-body">
+                    <ul class="ai-features">
+                        <li><i class="fas fa-check-circle"></i> AI-powered emotional health assessments</li>
+                        <li><i class="fas fa-check-circle"></i> Personalized mood tracking and insights</li>
+                        <li><i class="fas fa-check-circle"></i> Quick therapeutic conversations (2-5 minutes)</li>
+                        <li><i class="fas fa-check-circle"></i> Tracks patterns in emotions, anxiety, and relationships</li>
+                    </ul>
+                    <div class="ai-app-links">
+                        <a href="#" class="app-link"><i class="fas fa-mobile-alt"></i> App Store</a>
+                        <a href="#" class="app-link"><i class="fab fa-google-play"></i> Google Play</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ChatGPT Health Card -->
+            <div class="ai-card chatgpt-health">
+                <div class="ai-card-header">
+                    <div class="ai-icon">
+                        <i class="fas fa-stethoscope"></i>
+                    </div>
+                    <div class="best-for">AI Health Information</div>
+                    <h3>ChatGPT Health</h3>
+                    <p>Specialized health-focused version of ChatGPT providing medical information and wellness guidance.</p>
+                </div>
+                <div class="ai-card-body">
+                    <ul class="ai-features">
+                        <li><i class="fas fa-check-circle"></i> Health information and symptom checking</li>
+                        <li><i class="fas fa-check-circle"></i> Medication and treatment explanations</li>
+                        <li><i class="fas fa-check-circle"></i> Wellness and lifestyle recommendations</li>
+                        <li><i class="fas fa-check-circle"></i> Note: Not a replacement for professional medical advice</li>
+                    </ul>
+                    <div class="ai-app-links">
+                        <a href="#" class="app-link"><i class="fas fa-globe"></i> Web App</a>
+                        <a href="#" class="app-link"><i class="fas fa-mobile-alt"></i> Mobile App</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- MyFitnessPal Card -->
+            <div class="ai-card myfitnesspal">
+                <div class="ai-card-header">
+                    <div class="ai-icon">
+                        <i class="fas fa-apple-alt"></i>
+                    </div>
+                    <div class="best-for">Nutrition & Fitness Tracking</div>
+                    <h3>MyFitnessPal</h3>
+                    <p>The world's largest nutrition and fitness tracking app with AI-powered insights and recommendations.</p>
+                </div>
+                <div class="ai-card-body">
+                    <ul class="ai-features">
+                        <li><i class="fas fa-check-circle"></i> Largest food database (over 14 million foods)</li>
+                        <li><i class="fas fa-check-circle"></i> AI-powered nutrition insights and recommendations</li>
+                        <li><i class="fas fa-check-circle"></i> Exercise tracking and calorie burn estimates</li>
+                        <li><i class="fas fa-check-circle"></i> Integration with fitness devices and apps</li>
+                    </ul>
+                    <div class="ai-app-links">
+                        <a href="#" class="app-link"><i class="fas fa-mobile-alt"></i> App Store</a>
+                        <a href="#" class="app-link"><i class="fab fa-google-play"></i> Google Play</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Health Focus Areas -->
+    <section class="focus-section container">
+        <div class="section-title">
+            <h2>Health & Wellness Focus Areas</h2>
+            <p>These AI assistants cover different aspects of your health journey, from mental wellbeing to physical fitness.</p>
+        </div>
+        
+        <div class="focus-grid">
+            <div class="focus-card">
+                <div class="focus-icon focus-mental">
+                    <i class="fas fa-brain"></i>
+                </div>
+                <h3>Mental Health Support</h3>
+                <p>24/7 emotional support, therapeutic conversations, and mood tracking for better mental wellbeing.</p>
+            </div>
+            
+            <div class="focus-card">
+                <div class="focus-icon focus-mood">
+                    <i class="fas fa-chart-line"></i>
+                </div>
+                <h3>Emotional Insights</h3>
+                <p>AI-powered mood analysis, pattern recognition, and personalized emotional health guidance.</p>
+            </div>
+            
+            <div class="focus-card">
+                <div class="focus-icon focus-ai">
+                    <i class="fas fa-stethoscope"></i>
+                </div>
+                <h3>Health Information</h3>
+                <p>Accessible health information, symptom checking, and wellness recommendations from AI.</p>
+            </div>
+            
+            <div class="focus-card">
+                <div class="focus-icon focus-fitness">
+                    <i class="fas fa-running"></i>
+                </div>
+                <h3>Physical Wellness</h3>
+                <p>Nutrition tracking, exercise monitoring, and fitness goals with AI-powered insights.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Comparison Table -->
+    <section class="comparison-section">
+        <div class="container">
+            <div class="section-title">
+                <h2>Compare Health Assistants</h2>
+                <p>See how these AI health platforms compare across key features and focus areas</p>
+            </div>
+            
+            <div class="comparison-table">
+                <table>
+                    <thead>
+                        <tr>
+                            <th class="feature-name">Feature</th>
+                            <th>Wysa</th>
+                            <th>Youper</th>
+                            <th>ChatGPT Health</th>
+                            <th>MyFitnessPal</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="feature-name">Primary Focus</td>
+                            <td class="wysa-bg">Mental Health Support</td>
+                            <td class="youper-bg">Emotional Insights</td>
+                            <td class="chatgpt-health-bg">Health Information</td>
+                            <td class="myfitnesspal-bg">Nutrition & Fitness</td>
+                        </tr>
+                        <tr>
+                            <td class="feature-name">Free Tier</td>
+                            <td class="wysa-bg"><strong>Yes</strong> (basic features)</td>
+                            <td class="youper-bg"><strong>Yes</strong> (limited insights)</td>
+                            <td class="chatgpt-health-bg"><strong>Yes</strong> (GPT-3.5)</td>
+                            <td class="myfitnesspal-bg"><strong>Yes</strong> (basic tracking)</td>
+                        </tr>
+                        <tr>
+                            <td class="feature-name">Premium Features</td>
+                            <td class="wysa-bg">Therapist matching, advanced tools</td>
+                            <td class="youper-bg">Deep insights, unlimited conversations</td>
+                            <td class="chatgpt-health-bg">GPT-4, advanced health features</td>
+                            <td class="myfitnesspal-bg">Advanced insights, macro tracking</td>
+                        </tr>
+                        <tr>
+                            <td class="feature-name">Therapeutic Approach</td>
+                            <td class="wysa-bg">CBT, DBT, Mindfulness</td>
+                            <td class="youper-bg">Emotional awareness, quick therapy</td>
+                            <td class="chatgpt-health-bg">Information-based guidance</td>
+                            <td class="myfitnesspal-bg">Behavioral tracking, education</td>
+                        </tr>
+                        <tr>
+                            <td class="feature-name">Best For</td>
+                            <td class="wysa-bg">Daily emotional support</td>
+                            <td class="youper-bg">Mood pattern understanding</td>
+                            <td class="chatgpt-health-bg">Health information access</td>
+                            <td class="myfitnesspal-bg">Nutrition & fitness tracking</td>
+                        </tr>
+                        <tr>
+                            <td class="feature-name">Mobile App</td>
+                            <td class="wysa-bg"><strong>Yes</strong></td>
+                            <td class="youper-bg"><strong>Yes</strong></td>
+                            <td class="chatgpt-health-bg"><strong>Yes</strong> (ChatGPT app)</td>
+                            <td class="myfitnesspal-bg"><strong>Yes</strong></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="container">
+            <div class="cta-content">
+                <h2>Start Your Wellness Journey Today</h2>
+                <p>Whether you're looking for emotional support, mood insights, health information, or fitness tracking, there's an AI health assistant designed to support your specific wellness goals. Find your perfect digital health companion.</p>
+                <a href="#ai-cards" class="cta-button">Explore Health Assistants</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <h3>AI Health Hub</h3>
+                    <p>Your guide to AI-powered health and wellness solutions. Discover how technology can support your mental and physical wellbeing.</p>
+                </div>
+                <div class="footer-links">
+                    <div class="footer-column">
+                        <h4>Health Assistants</h4>
+                        <ul>
+                            <li><a href="#">Wysa</a></li>
+                            <li><a href="#">Youper</a></li>
+                            <li><a href="#">ChatGPT Health</a></li>
+                            <li><a href="#">MyFitnessPal</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h4>Resources</h4>
+                        <ul>
+                            <li><a href="#">Mental Health Tips</a></li>
+                            <li><a href="#">Nutrition Guides</a></li>
+                            <li><a href="#">Fitness Plans</a></li>
+                            <li><a href="#">Wellness Blog</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h4>Connect</h4>
+                        <ul>
+                            <li><a href="#">About Us</a></li>
+                            <li><a href="#">Contact</a></li>
+                            <li><a href="#">Privacy Policy</a></li>
+                            <li><a href="#">Disclaimer</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2023 AI Health Hub. This is a demonstration site for educational purposes. These tools are not substitutes for professional medical advice. Always consult healthcare professionals for medical concerns.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Add interactivity to the cards
+        document.addEventListener('DOMContentLoaded', function() {
+            const cards = document.querySelectorAll('.ai-card');
+            
+            cards.forEach(card => {
+                card.addEventListener('click', function(e) {
+                    // Don't trigger on app link clicks
+                    if (!e.target.classList.contains('app-link') && !e.target.parentElement.classList.contains('app-link')) {
+                        // Remove active class from all cards
+                        cards.forEach(c => c.classList.remove('active'));
+                        // Add active class to clicked card
+                        this.classList.add('active');
+                        
+                        // Scroll to comparison table
+                        document.querySelector('.comparison-section').scrollIntoView({
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+            
+            // Add hover effect to table rows
+            const tableRows = document.querySelectorAll('tbody tr');
+            tableRows.forEach(row => {
+                row.addEventListener('mouseenter', function() {
+                    this.style.backgroundColor = 'rgba(0, 0, 0, 0.02)';
+                });
+                
+                row.addEventListener('mouseleave', function() {
+                    this.style.backgroundColor = '';
+                });
+            });
+            
+            // CTA button scroll to cards
+            document.querySelector('.cta-button').addEventListener('click', function(e) {
+                e.preventDefault();
+                document.querySelector('.ai-cards').scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+            
+            // Focus cards animation
+            const focusCards = document.querySelectorAll('.focus-card');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, { threshold: 0.1 });
+            
+            focusCards.forEach(card => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(20px)';
+                card.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+                observer.observe(card);
+            });
+        });
+    </script>
+</body>
+</html>
