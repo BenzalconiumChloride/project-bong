@@ -1,0 +1,318 @@
+.login-container {
+        position: relative;
+        z-index: 1;
+        animation: slideUp 0.6s ease-out;
+    }
+
+    @keyframes slideUp {
+        from {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .login-container-header {
+        text-align: center;
+        animation: fadeIn 0.8s ease-out 0.2s both;
+    }
+
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+        }
+
+        to {
+            opacity: 1;
+        }
+    }
+
+    .login-logo {
+        width: 100%;
+        max-width: 100px;
+        height: auto;
+        filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.15));
+        transition: transform 0.3s ease;
+    }
+
+    .login-logo:hover {
+        transform: scale(1.05);
+    }
+
+    .product-title {
+        font-size: 24px;
+        font-weight: 700;
+        color: white;
+        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .product-subtitle {
+        font-size: 15px;
+        font-weight: 300;
+        color: rgba(255, 255, 255, 0.9);
+    }
+
+    .login-container-content {
+        border-radius: 20px;
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(10px);
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3),
+            0 0 0 1px rgba(255, 255, 255, 0.1);
+        animation: slideUp 0.6s ease-out 0.3s both;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .login-container-content:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 25px 70px rgba(0, 0, 0, 0.35),
+            0 0 0 1px rgba(255, 255, 255, 0.1);
+    }
+
+    .product-message-error {
+        text-align: center;
+        font-size: 14px;
+        padding: 12px;
+        border-radius: 10px;
+        background: rgba(220, 53, 69, 0.1);
+        border: 1px solid rgba(220, 53, 69, 0.3);
+        animation: shake 0.5s ease;
+    }
+
+    @keyframes shake {
+
+        0%,
+        100% {
+            transform: translateX(0);
+        }
+
+        25% {
+            transform: translateX(-10px);
+        }
+
+        75% {
+            transform: translateX(10px);
+        }
+    }
+
+    .form-group-neu label {
+        display: block;
+        font-size: 14px;
+        font-weight: 600;
+        color: #333;
+        transition: color 0.3s ease;
+    }
+
+    .form-group-neu input {
+        width: 100%;
+        padding: 14px 18px;
+        border: 2px solid #e0e0e0;
+        border-radius: 12px;
+        font-size: 15px;
+        transition: all 0.3s ease;
+        background: #f8f9fa;
+        color: #333;
+    }
+
+    .form-group-neu input:focus {
+        outline: none;
+        border-color: #667eea;
+        background: white;
+        box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1);
+        transform: translateY(-2px);
+    }
+
+    .form-group-neu input:focus+label {
+        color: #667eea;
+    }
+
+    .form-group-neu input::placeholder {
+        color: #adb5bd;
+    }
+
+    .btn-login {
+        width: 100%;
+        padding: 14px;
+        border: none;
+        border-radius: 12px;
+        font-size: 16px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        position: relative;
+        overflow: hidden;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+    }
+
+    .btn-login::before {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 0;
+        height: 0;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.3);
+        transform: translate(-50%, -50%);
+        transition: width 0.6s ease, height 0.6s ease;
+    }
+
+    .btn-login:hover::before {
+        width: 300px;
+        height: 300px;
+    }
+
+    .btn-login:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 25px rgba(102, 126, 234, 0.5);
+    }
+
+    .btn-login:active {
+        transform: translateY(0);
+    }
+
+    /* Loading state animation */
+    .btn-login.loading {
+        pointer-events: none;
+        opacity: 0.7;
+    }
+
+    .btn-login.loading::after {
+        content: '';
+        position: absolute;
+        width: 16px;
+        height: 16px;
+        top: 50%;
+        left: 50%;
+        margin-left: -8px;
+        margin-top: -8px;
+        border: 2px solid rgba(255, 255, 255, 0.3);
+        border-top-color: white;
+        border-radius: 50%;
+        animation: spin 0.6s linear infinite;
+    }
+
+    @keyframes spin {
+        to {
+            transform: rotate(360deg);
+        }
+    }
+
+    /* Form transition styles */
+    .form-wrapper {
+        position: relative;
+        overflow: hidden;
+    }
+
+    .form-slide {
+        transition: all 0.4s ease-in-out;
+        opacity: 0;
+        transform: translateX(100%);
+        position: absolute;
+        width: 100%;
+        pointer-events: none;
+    }
+
+    .form-slide.active {
+        opacity: 1;
+        transform: translateX(0);
+        position: relative;
+        pointer-events: all;
+    }
+
+    .form-slide.slide-out-left {
+        transform: translateX(-100%);
+        opacity: 0;
+    }
+
+    .switch-text {
+        transition: opacity 0.3s ease-in-out;
+    }
+
+    /* Radio Button Card Styling */
+.radio-group {
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.radio-card {
+    flex: 1;
+    min-width: 120px;
+    position: relative;
+    cursor: pointer;
+    margin: 0;
+}
+
+.radio-card input[type="radio"] {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.radio-card-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px 15px;
+    border: 2px solid #e0e0e0;
+    border-radius: 12px;
+    background: #fff;
+    transition: all 0.3s ease;
+    gap: 8px;
+}
+
+.radio-card-content i {
+    font-size: 2rem;
+    color: #999;
+    transition: all 0.3s ease;
+}
+
+.radio-label {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #666;
+    transition: all 0.3s ease;
+}
+
+/* Hover State */
+.radio-card:hover .radio-card-content {
+    border-color: #667eea;
+    background: #f8f9ff;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.15);
+}
+
+.radio-card:hover .radio-card-content i {
+    color: #667eea;
+}
+
+/* Checked State */
+.radio-card input[type="radio"]:checked + .radio-card-content {
+    border-color: #667eea;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    box-shadow: 0 6px 20px rgba(102, 126, 234, 0.3);
+}
+
+.radio-card input[type="radio"]:checked + .radio-card-content i {
+    color: #fff;
+}
+
+.radio-card input[type="radio"]:checked + .radio-card-content .radio-label {
+    color: #fff;
+}
+
+/* Active/Focus State */
+.radio-card input[type="radio"]:focus + .radio-card-content {
+    outline: 2px solid #667eea;
+    outline-offset: 2px;
+}

@@ -1,5 +1,47 @@
-<!-- Hero Section -->
+<?php
+require_once 'global-library/database.php';
+require_once 'include/functions.php';
+
+$data = ["emailAddress" => null, "message" => null];
+
+if (isset($_POST['txtEmailAddress']) && isset($_POST['login'])) {
+    $result = doLogin();
+    if (!empty($result) && is_array($result)) {
+        $data = $result;
+    }
+}
+
+if (isset($_POST['register'])) {
+    $fname = trim($_POST['firstname']);
+    $lname = trim($_POST['lastname']);
+    $email = trim($_POST['txtEmailAddress']);
+    $password = password_hash($_POST['txtPassword'], PASSWORD_DEFAULT);
+    $userType = $_POST['userType']; // Get user type from form
+    $accessLevel = ($userType == 'teacher') ? 1 : 0; // Convert to access level
+
+    $stmt = $conn->prepare("SELECT user_id FROM bs_user WHERE email = ?");
+    $stmt->execute([$email]);
+
+    if ($stmt->rowCount() > 0) {
+        $data['message'] = 'Email already registered';
+    } else {
+        $stmt = $conn->prepare("
+            INSERT INTO bs_user (firstname, lastname, email, password, access_level, date_added)
+            VALUES (?, ?, ?, ?, ?, NOW())
+        ");
+        $stmt->execute([$fname, $lname, $email, $password, $accessLevel]);
+        $data['message'] = 'success'; // Changed to trigger SweetAlert
+    }
+
+    $data['emailAddress'] = $email;
+}
+?>
+
+<link rel="stylesheet" href="<?php echo WEB_ROOT; ?>home/css/login.css">
+
+
 <section class="py-5">
+    <?php if (isset($_SESSION['user_id'])) { echo "User ID: ".$_SESSION['user_id']; } ?>
     <div class="container py-lg-5">
         <div class="row align-items-center g-5">
             <div class="col-lg-6">
@@ -53,7 +95,7 @@
                 <div class="app-icon-wrapper text-center">
                     <div class="app-icon bg-primary mb-2">
                         <svg class="bi bi-robot" width="2em" height="2em">
-                            <use xlink:href="<?php echo WEB_ROOT;?>assets/home-svg/ai.svg"/>
+                            <use xlink:href="<?php echo WEB_ROOT; ?>assets/home-svg/ai.svg" />
                         </svg>
                     </div>
                     <h6 class="app-icon-title mb-0">AI Learning Assistant</h6>
@@ -64,8 +106,8 @@
             <div class="col-6 col-sm-4 col-md-3 col-lg-2">
                 <div class="app-icon-wrapper text-center">
                     <div class="app-icon mb-2" style="background: linear-gradient(135deg, #9333ea, #c084fc);">
-                         <svg class="bi bi-robot" width="2em" height="2em">
-                            <use xlink:href="<?php echo WEB_ROOT;?>assets/home-svg/literacy.svg"/>
+                        <svg class="bi bi-robot" width="2em" height="2em">
+                            <use xlink:href="<?php echo WEB_ROOT; ?>assets/home-svg/literacy.svg" />
                         </svg>
                     </div>
                     <h6 class="app-icon-title mb-0">Literacy Games</h6>
@@ -76,8 +118,8 @@
             <div class="col-6 col-sm-4 col-md-3 col-lg-2">
                 <div class="app-icon-wrapper text-center">
                     <div class="app-icon bg-success mb-2">
-                         <svg class="bi bi-robot" width="2em" height="2em">
-                            <use xlink:href="<?php echo WEB_ROOT;?>assets/home-svg/math.svg"/>
+                        <svg class="bi bi-robot" width="2em" height="2em">
+                            <use xlink:href="<?php echo WEB_ROOT; ?>assets/home-svg/math.svg" />
                         </svg>
                     </div>
                     <h6 class="app-icon-title mb-0">Math Adventures</h6>
@@ -88,8 +130,8 @@
             <div class="col-6 col-sm-4 col-md-3 col-lg-2">
                 <div class="app-icon-wrapper text-center">
                     <div class="app-icon mb-2" style="background: linear-gradient(135deg, #ec4899, #f472b6);">
-                         <svg class="bi bi-robot" width="2em" height="2em">
-                            <use xlink:href="<?php echo WEB_ROOT;?>assets/home-svg/health.svg"/>
+                        <svg class="bi bi-robot" width="2em" height="2em">
+                            <use xlink:href="<?php echo WEB_ROOT; ?>assets/home-svg/health.svg" />
                         </svg>
                     </div>
                     <h6 class="app-icon-title mb-0">Health & Wellness</h6>
@@ -100,8 +142,8 @@
             <div class="col-6 col-sm-4 col-md-3 col-lg-2">
                 <div class="app-icon-wrapper text-center">
                     <div class="app-icon mb-2" style="background: linear-gradient(135deg, #f59e0b, #fbbf24);">
-                         <svg class="bi bi-robot" width="2em" height="2em">
-                            <use xlink:href="<?php echo WEB_ROOT;?>assets/home-svg/disaster.svg"/>
+                        <svg class="bi bi-robot" width="2em" height="2em">
+                            <use xlink:href="<?php echo WEB_ROOT; ?>assets/home-svg/disaster.svg" />
                         </svg>
                     </div>
                     <h6 class="app-icon-title mb-0">Disaster Safety</h6>
@@ -113,7 +155,7 @@
                 <div class="app-icon-wrapper text-center">
                     <div class="app-icon mb-2" style="background: linear-gradient(135deg, #6366f1, #818cf8);">
                         <svg class="bi bi-robot" width="2em" height="2em">
-                            <use xlink:href="<?php echo WEB_ROOT;?>assets/home-svg/learning.svg"/>
+                            <use xlink:href="<?php echo WEB_ROOT; ?>assets/home-svg/learning.svg" />
                         </svg>
                     </div>
                     <h6 class="app-icon-title mb-0">Learning Games</h6>
@@ -250,3 +292,175 @@
         </div>
     </div>
 </section>
+
+
+<!-- modal -->
+<div class="modal fade" id="loginModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+           
+                <div class="login-container">
+
+                    <div class="login-container-content p-4 p-sm-5">
+
+
+                        <?php if (!empty($data["message"]) && $data["message"] != 'success'): ?>
+                            <div class="product-message-error mb-3">
+                                <?= htmlspecialchars($data["message"]); ?>
+                            </div>
+                        <?php endif; ?>
+
+                        <!-- FORM WRAPPER with transition -->
+                        <div class="form-wrapper">
+                            <!-- LOGIN FORM -->
+                            <form id="loginForm" method="post" class="form-slide active">
+                                <div class="form-group-neu mb-3">
+                                    <label>Email</label>
+                                    <input type="email" name="txtEmailAddress" class="form-control"
+                                        value="<?= htmlspecialchars($data["emailAddress"]); ?>" required>
+                                </div>
+
+                                <div class="form-group-neu mb-4">
+                                    <label>Password</label>
+                                    <input type="password" name="txtPassword" class="form-control" required>
+                                </div>
+
+                                <button type="submit" name="login" class="btn btn-login">Login</button>
+
+                                <p class="text-center mt-3 switch-text">
+                                    No account? <a href="#" onclick="toggleForm(); return false;">Register</a>
+                                </p>
+                            </form>
+
+                            <!-- REGISTER FORM -->
+                            <form id="registerForm" method="post" class="form-slide">
+                                <div class="form-group-neu mb-3">
+                                    <label>First Name</label>
+                                    <input type="text" name="firstname" class="form-control" required>
+                                </div>
+
+                                <div class="form-group-neu mb-3">
+                                    <label>Last Name</label>
+                                    <input type="text" name="lastname" class="form-control" required>
+                                </div>
+
+                                <div class="form-group-neu mb-3">
+                                    <label>Email</label>
+                                    <input type="email" name="txtEmailAddress" class="form-control" required>
+                                </div>
+
+                                <div class="form-group-neu mb-4">
+                                    <label>Password</label>
+                                    <input type="password" name="txtPassword" class="form-control" required>
+                                </div>
+
+                                <div class="form-group-neu mb-4">
+                                    <label class="mb-3">I am a:</label>
+                                    <div class="radio-group">
+                                        <label class="radio-card">
+                                            <input type="radio" name="userType" value="student" checked>
+                                            <span class="radio-card-content">
+                                                <i class="bi bi-backpack-fill"></i>
+                                                <span class="radio-label">Student</span>
+                                            </span>
+                                        </label>
+                                        <label class="radio-card">
+                                            <input type="radio" name="userType" value="teacher">
+                                            <span class="radio-card-content">
+                                                <i class="bi bi-mortarboard-fill"></i>
+                                                <span class="radio-label">Teacher</span>
+                                            </span>
+                                        </label>
+                                    </div>
+                                </div>
+
+                                <button type="submit" name="register" class="btn btn-login">Register</button>
+
+                                <p class="text-center mt-3 switch-text">
+                                    Already have an account? <a href="#" onclick="toggleForm(); return false;">Login</a>
+                                </p>
+                            </form>
+                        </div>
+
+                    </div>
+                </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    let currentForm = 'login';
+
+    function toggleForm() {
+        const login = document.getElementById('loginForm');
+        const register = document.getElementById('registerForm');
+
+        if (currentForm === 'login') {
+            // Switch to register
+            login.classList.remove('active');
+            login.classList.add('slide-out-left');
+
+            setTimeout(() => {
+                login.classList.remove('slide-out-left');
+                register.classList.add('active');
+                currentForm = 'register';
+            }, 100);
+        } else {
+            // Switch to login
+            register.classList.remove('active');
+            register.classList.add('slide-out-left');
+
+            setTimeout(() => {
+                register.classList.remove('slide-out-left');
+                login.classList.add('active');
+                currentForm = 'login';
+            }, 100);
+        }
+    }
+
+    // Add loading state on form submit
+    document.getElementById('loginForm').addEventListener('submit', function(e) {
+        const btn = this.querySelector('.btn-login');
+        btn.classList.add('loading');
+        btn.textContent = 'Signing in...';
+    });
+
+    document.getElementById('registerForm').addEventListener('submit', function(e) {
+        const btn = this.querySelector('.btn-login');
+        btn.classList.add('loading');
+        btn.textContent = 'Creating account...';
+    });
+
+    // Add focus animations
+    const inputs = document.querySelectorAll('.form-group-neu input');
+    inputs.forEach(input => {
+        input.addEventListener('focus', function() {
+            this.parentElement.querySelector('label').style.color = '#667eea';
+        });
+        input.addEventListener('blur', function() {
+            if (!this.value) {
+                this.parentElement.querySelector('label').style.color = '#333';
+            }
+        });
+    });
+
+    // SweetAlert for successful registration
+    <?php if (!empty($data["message"]) && $data["message"] == 'success'): ?>
+    Swal.fire({
+        icon: 'success',
+        title: 'Registration Successful!',
+        text: 'You may now login with your credentials.',
+        confirmButtonText: 'OK',
+        confirmButtonColor: '#667eea',
+        allowOutsideClick: false
+    }).then((result) => {
+        if (result.isConfirmed) {
+            // Switch to login form
+            toggleForm();
+        }
+    });
+    <?php endif; ?>
+</script>

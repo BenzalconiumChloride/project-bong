@@ -410,6 +410,18 @@ if (isset($_POST['register'])) {
                                     <input type="password" name="txtPassword" class="form-control" required>
                                 </div>
 
+                                <div class="form-group-neu mb-4">
+                                    <label>Student / Teacher</label>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="userType" value="student" checked>
+                                        <label class="form-check-label" for="student">Student</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="userType" value="teacher">
+                                        <label class="form-check-label" for="teacher">Teacher</label>
+                                    </div>
+                                </div>
+
                                 <button type="submit" name="register" class="btn btn-login">Register</button>
 
                                 <p class="text-center mt-3 switch-text">

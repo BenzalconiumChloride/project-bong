@@ -1,0 +1,177 @@
+ * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    body {
+        background: linear-gradient(180deg, #4a6fa5 0%, #2c5282 100%);
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+        position: relative;
+    }
+
+    .login-logo {
+        filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.2));
+    }
+
+    .product-title {
+        font-size: clamp(20px, 4vw, 28px);
+        font-weight: 700;
+        color: white;
+        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        letter-spacing: 0.5px;
+    }
+
+    .product-subtitle {
+        font-size: clamp(13px, 2.5vw, 15px);
+        font-weight: 300;
+        color: rgba(255, 255, 255, 0.9);
+        text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+    }
+
+    .login-card {
+        border-radius: 16px;
+        background: white;
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+        animation: fadeInUp 0.8s ease-out;
+        border: none;
+    }
+
+    .form-header {
+        text-align: center;
+    }
+
+    .form-header h2 {
+        font-size: clamp(20px, 3vw, 24px);
+        font-weight: 600;
+        color: #2c3e50;
+    }
+
+    .form-header p {
+        font-size: 14px;
+        color: #6c757d;
+    }
+
+    .product-message-error {
+        font-size: 14px;
+        border-radius: 8px;
+        background-color: #fee;
+        border: 1px solid #fcc;
+        animation: shake 0.5s ease-in-out;
+    }
+
+    .form-label {
+        font-size: 14px;
+        font-weight: 600;
+        color: #333;
+    }
+
+    .form-control {
+        border: 1px solid #dee2e6;
+        border-radius: 8px;
+        background-color: white;
+        transition: all 0.3s ease;
+    }
+
+    .form-control:focus {
+        border-color: #2c5282;
+        background-color: white;
+        box-shadow: 0 0 0 3px rgba(44, 82, 130, 0.1);
+    }
+
+    .form-control::placeholder {
+        color: #adb5bd;
+    }
+
+    .btn {
+        font-weight: 600;
+        border: none;
+        border-radius: 10px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    .btn-success {
+        background: #2c5282;
+        color: white;
+        box-shadow: 0 2px 8px rgba(44, 82, 130, 0.3);
+    }
+
+    .btn-success:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 4px 12px rgba(44, 82, 130, 0.4);
+        background: #234166;
+        color: white;
+    }
+
+    .btn-success:active {
+        transform: translateY(0);
+    }
+
+    .forgot-password {
+        text-align: center;
+        margin-top: 1rem;
+    }
+
+    .forgot-password a {
+        font-size: 14px;
+        color: #2a5298;
+        text-decoration: none;
+        font-weight: 500;
+        transition: color 0.3s ease;
+    }
+
+    .forgot-password a:hover {
+        color: #1e3c72;
+        text-decoration: underline;
+    }
+
+    .footer-info {
+        text-align: center;
+        margin-top: 1.5rem;
+        font-size: 12px;
+        color: rgba(255, 255, 255, 0.8);
+        animation: fadeIn 1s ease-out 0.5s both;
+    }
+
+    /* Animations */
+    @keyframes fadeInDown {
+        from {
+            opacity: 0;
+            transform: translateY(-30px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    @keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+        }
+        to {
+            opacity: 1;
+        }
+    }
+
+    @keyframes shake {
+        0%, 100% { transform: translateX(0); }
+        10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+        20%, 40%, 60%, 80% { transform: translateX(5px); }
+    }
+
+   

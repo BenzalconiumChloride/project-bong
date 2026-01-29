@@ -20,7 +20,7 @@
                     <a class="nav-link" href="#portals">Portals</a>
                 </li>
                 <li class="nav-item ms-lg-3">
-                    <a class="btn btn-gradient rounded-3 px-4" href="<?= WEB_ROOT ?>login.php">Get Started</a>
+                    <button class="btn btn-gradient rounded-3 px-4" data-bs-toggle="modal" data-bs-target="#loginModal">Get Started</button>
                 </li>
             </ul>
         </div>
