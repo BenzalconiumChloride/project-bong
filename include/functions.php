@@ -32,7 +32,7 @@ function doLogin()
 		$data = ["emailAddress" => "$emailAddress", "message" => "You must enter the password"];
 	} else {
 
-		$chk = $conn->prepare("SELECT user_id, password FROM bs_user WHERE email = '$emailAddress' AND is_deleted != '1'");
+		$chk = $conn->prepare("SELECT user_id, password, access_level FROM bs_user WHERE email = '$emailAddress' AND is_deleted != '1'");
 		$chk->execute();
 
 		if($chk->rowCount() > 0)
@@ -44,19 +44,23 @@ function doLogin()
 				if (password_verify($password, $hashedPassword)) {
 					
 					$_SESSION['user_id'] = $chk_data['user_id'];
+					$_SESSION['access_level'] = $chk_data['access_level']; // Store access level in session
 
 	
 					$sql = $conn->prepare("UPDATE bs_user SET last_login = '$today_date1' WHERE user_id = '{$chk_data['user_id']}'");
 					$sql->execute();
 
-
-					if (isset($_SESSION['login_return_url'])) {
-							
-						header('Location:' . WEB_ROOT . '');
+					// Redirect based on access level
+					if ($chk_data['access_level'] == 0) {
+						// Student portal
+						header('Location:' . WEB_ROOT . 'student-portal/');
 						exit;
-
+					} else if ($chk_data['access_level'] == 1) {
+						// Teacher portal
+						header('Location:' . WEB_ROOT . 'teacher-portal/');
+						exit;
 					} else {
-						
+						// Default redirect for other access levels
 						header('Location:' . WEB_ROOT . '');
 						exit;
 					}

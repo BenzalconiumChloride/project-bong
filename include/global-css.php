@@ -11,3 +11,6 @@
    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
 
 <link rel="stylesheet" href="<?php echo WEB_ROOT; ?>home/css/main.css">
+
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
