@@ -52,7 +52,7 @@
 					<i class="bi bi-robot text-primary fs-5"></i>
 				</div>
 				<div>
-					<h6 class="mb-0 fw-bold">AI Learning Assistant</h6>
+					<h6 class="mb-0 fw-bold">BONG AI</h6>
 					<small class="opacity-75">Always here to help!</small>
 				</div>
 			</div>

@@ -4,7 +4,7 @@
             <div class="logo-box me-2">
                 <i class="bi bi-stars text-white"></i>
             </div>
-            <span class="fw-bold fs-5 gradient-text">LearnHub</span>
+            <span class="fw-bold fs-5 gradient-text">BONG AI</span>
         </a>
 
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
