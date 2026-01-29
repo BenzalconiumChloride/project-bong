@@ -35,13 +35,14 @@ if (isset($_POST['register'])) {
 
     $data['emailAddress'] = $email;
 }
+
+$isLoggedIn = isset($_SESSION['user_id']);
 ?>
 
 <link rel="stylesheet" href="<?php echo WEB_ROOT; ?>home/css/login.css">
 
 
 <section class="py-5">
-    <?php if (isset($_SESSION['user_id'])) { echo "User ID: ".$_SESSION['user_id']; } ?>
     <div class="container py-lg-5">
         <div class="row align-items-center g-5">
             <div class="col-lg-6">
@@ -91,19 +92,19 @@ if (isset($_POST['register'])) {
 
         <div class="row g-4 justify-content-center">
             <!-- AI Learning Assistant -->
-            <div class="col-6 col-sm-4 col-md-3 col-lg-2">
+            <div class="col-6 col-sm-4 col-md-3 col-lg-2" onclick="toggleChat()">
                 <div class="app-icon-wrapper text-center">
                     <div class="app-icon bg-primary mb-2">
                         <svg class="bi bi-robot" width="2em" height="2em">
                             <use xlink:href="<?php echo WEB_ROOT; ?>assets/home-svg/ai.svg" />
                         </svg>
                     </div>
-                    <h6 class="app-icon-title mb-0">AI Learning Assistant</h6>
+                    <h6 class="app-icon-title mb-0">Ask BONG AI</h6>
                 </div>
             </div>
 
             <!-- Literacy Games -->
-            <div class="col-6 col-sm-4 col-md-3 col-lg-2">
+            <div class="col-6 col-sm-4 col-md-3 col-lg-2"  onclick="checkSessionAndRedirect('Literacy Games', 'literacy')">
                 <div class="app-icon-wrapper text-center">
                     <div class="app-icon mb-2" style="background: linear-gradient(135deg, #9333ea, #c084fc);">
                         <svg class="bi bi-robot" width="2em" height="2em">
@@ -392,6 +393,33 @@ if (isset($_POST['register'])) {
 </div>
 
 <script>
+     // Check if user is logged in
+    const isLoggedIn = <?php echo $isLoggedIn ? 'true' : 'false'; ?>;
+
+    function checkSessionAndRedirect(appName, appUrl) {
+        if (!isLoggedIn) {
+            Swal.fire({
+                icon: 'warning',
+                title: 'Login Required',
+                text: 'You need to register or login first to access ' + appName + '!',
+                confirmButtonText: 'Register / Login',
+                confirmButtonColor: '#667eea',
+                showCancelButton: true,
+                cancelButtonText: 'Cancel',
+                cancelButtonColor: '#d33'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // Open login modal using Bootstrap 5
+                    const loginModal = new bootstrap.Modal(document.getElementById('loginModal'));
+                    loginModal.show();
+                }
+            });
+        } else {
+            // User is logged in, redirect to the app
+            window.location.href = '<?php echo WEB_ROOT; ?>' + appUrl + '/';
+        }
+    }
+    
     let currentForm = 'login';
 
     function toggleForm() {
