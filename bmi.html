@@ -1,0 +1,922 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student BMI Tracker & Health Analytics</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f9fc;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 20px;
+            background: linear-gradient(135deg, #1e5799 0%, #207cca 100%);
+            color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+        
+        .subtitle {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+        
+        .app-description {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        }
+        
+        .main-content {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+        
+        .input-section, .analytics-section {
+            flex: 1;
+            min-width: 300px;
+            background-color: white;
+            border-radius: 10px;
+            padding: 25px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        }
+        
+        .section-title {
+            font-size: 1.5rem;
+            color: #1e5799;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #eaeaea;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #444;
+        }
+        
+        input, select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+            transition: border 0.3s;
+        }
+        
+        input:focus, select:focus {
+            border-color: #1e5799;
+            outline: none;
+        }
+        
+        .input-option {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+            gap: 10px;
+        }
+        
+        .input-option input {
+            width: auto;
+        }
+        
+        .input-option label {
+            margin-bottom: 0;
+            cursor: pointer;
+        }
+        
+        .input-group {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .input-group .form-group {
+            flex: 1;
+        }
+        
+        .calculated-bmi {
+            background-color: #f0f7ff;
+            padding: 15px;
+            border-radius: 5px;
+            margin-top: 10px;
+            border-left: 4px solid #1e5799;
+        }
+        
+        .calculated-bmi p {
+            margin: 5px 0;
+        }
+        
+        .bmi-display {
+            font-weight: bold;
+            font-size: 1.2rem;
+            color: #1e5799;
+        }
+        
+        .btn {
+            background-color: #1e5799;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: background-color 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .btn:hover {
+            background-color: #16437e;
+        }
+        
+        .btn-secondary {
+            background-color: #6c757d;
+        }
+        
+        .btn-secondary:hover {
+            background-color: #5a6268;
+        }
+        
+        .btn-success {
+            background-color: #28a745;
+        }
+        
+        .btn-success:hover {
+            background-color: #218838;
+        }
+        
+        .students-list {
+            margin-top: 30px;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+        
+        .student-card {
+            background-color: #f8f9fa;
+            border-left: 4px solid #1e5799;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-radius: 5px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .student-card.at-risk {
+            border-left-color: #dc3545;
+            background-color: #ffeaea;
+        }
+        
+        .student-card.moderate-risk {
+            border-left-color: #ffc107;
+            background-color: #fff9e6;
+        }
+        
+        .student-info h4 {
+            font-size: 1.1rem;
+            margin-bottom: 5px;
+        }
+        
+        .student-info p {
+            color: #666;
+            font-size: 0.9rem;
+        }
+        
+        .bmi-value {
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+        
+        .bmi-underweight {
+            color: #17a2b8;
+        }
+        
+        .bmi-normal {
+            color: #28a745;
+        }
+        
+        .bmi-overweight {
+            color: #ffc107;
+        }
+        
+        .bmi-obese {
+            color: #dc3545;
+        }
+        
+        .stats-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+        
+        .stat-card {
+            background-color: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            border-top: 4px solid #1e5799;
+        }
+        
+        .stat-card.at-risk {
+            border-top-color: #dc3545;
+        }
+        
+        .stat-card.moderate-risk {
+            border-top-color: #ffc107;
+        }
+        
+        .stat-value {
+            font-size: 2rem;
+            font-weight: bold;
+            margin: 10px 0;
+        }
+        
+        .stat-label {
+            color: #666;
+            font-size: 0.9rem;
+        }
+        
+        .chart-container {
+            height: 250px;
+            margin-top: 20px;
+            position: relative;
+        }
+        
+        .actions {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #ddd;
+            color: #666;
+            font-size: 0.9rem;
+        }
+        
+        .bmi-categories {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        
+        .bmi-category {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .category-color {
+            width: 15px;
+            height: 15px;
+            border-radius: 3px;
+        }
+        
+        .underweight-color {
+            background-color: #17a2b8;
+        }
+        
+        .normal-color {
+            background-color: #28a745;
+        }
+        
+        .overweight-color {
+            background-color: #ffc107;
+        }
+        
+        .obese-color {
+            background-color: #dc3545;
+        }
+        
+        .hidden {
+            display: none !important;
+        }
+        
+        @media (max-width: 768px) {
+            .main-content {
+                flex-direction: column;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .input-group {
+                flex-direction: column;
+                gap: 0;
+            }
+            
+            .bmi-categories {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1><i class="fas fa-heartbeat"></i> Student BMI Tracker System</h1>
+            <p class="subtitle">Track, analyze, and identify students needing health assistance</p>
+        </header>
+        
+        <div class="app-description">
+            <p>This system allows school health professionals to record and track students' BMI (Body Mass Index) values. You can either input BMI directly or provide height and weight for automatic calculation. The analytics section identifies students who may need health assistance based on established BMI categories for children and adolescents.</p>
+        </div>
+        
+        <div class="main-content">
+            <section class="input-section">
+                <h2 class="section-title"><i class="fas fa-user-plus"></i> Add Student BMI Record</h2>
+                <form id="bmiForm">
+                    <div class="form-group">
+                        <label for="studentName">Student Name</label>
+                        <input type="text" id="studentName" placeholder="Enter student's full name" required>
+                    </div>
+                    
+                    <div class="input-group">
+                        <div class="form-group">
+                            <label for="schoolName">School</label>
+                            <input type="text" id="schoolName" placeholder="Enter school name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="studentGrade">Grade</label>
+                            <select id="studentGrade" required>
+                                <option value="">Select grade</option>
+                                <option value="1">Grade 1</option>
+                                <option value="2">Grade 2</option>
+                                <option value="3">Grade 3</option>
+                                <option value="4">Grade 4</option>
+                                <option value="5">Grade 5</option>
+                                <option value="6">Grade 6</option>
+                                <option value="7">Grade 7</option>
+                                <option value="8">Grade 8</option>
+                                <option value="9">Grade 9</option>
+                                <option value="10">Grade 10</option>
+                                <option value="11">Grade 11</option>
+                                <option value="12">Grade 12</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="studentSection">Section</label>
+                            <input type="text" id="studentSection" placeholder="e.g., A, B, C" required>
+                        </div>
+                    </div>
+                    
+                    <div class="input-group">
+                        <div class="form-group">
+                            <label for="studentAge">Age (Years)</label>
+                            <input type="number" id="studentAge" min="5" max="19" placeholder="Between 5 and 19" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="studentGender">Gender</label>
+                            <select id="studentGender" required>
+                                <option value="">Select gender</option>
+                                <option value="male">Male</option>
+                                <option value="female">Female</option>
+                                <option value="other">Other/Prefer not to say</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <div class="input-option">
+                            <input type="radio" id="inputMethodBMI" name="inputMethod" value="bmi" checked>
+                            <label for="inputMethodBMI">Enter BMI directly</label>
+                        </div>
+                        <div class="input-option">
+                            <input type="radio" id="inputMethodHW" name="inputMethod" value="heightWeight">
+                            <label for="inputMethodHW">Enter height & weight</label>
+                        </div>
+                    </div>
+                    
+                    <div id="bmiInputSection">
+                        <div class="form-group">
+                            <label for="studentBMI">BMI Value</label>
+                            <input type="number" id="studentBMI" step="0.1" min="10" max="50" placeholder="Enter BMI (e.g., 18.5)" required>
+                            <small style="color: #666; display: block; margin-top: 5px;">BMI = weight(kg) / height(m)²</small>
+                        </div>
+                    </div>
+                    
+                    <div id="heightWeightInputSection" class="hidden">
+                        <div class="input-group">
+                            <div class="form-group">
+                                <label for="studentHeight">Height (cm)</label>
+                                <input type="number" id="studentHeight" step="0.1" min="50" max="250" placeholder="Height in cm">
+                            </div>
+                            <div class="form-group">
+                                <label for="studentWeight">Weight (kg)</label>
+                                <input type="number" id="studentWeight" step="0.1" min="10" max="200" placeholder="Weight in kg">
+                            </div>
+                        </div>
+                        
+                        <div id="calculatedBMIContainer" class="calculated-bmi hidden">
+                            <p>Calculated BMI: <span id="calculatedBMI" class="bmi-display">0.0</span></p>
+                            <p>Category: <span id="calculatedCategory">-</span></p>
+                            <p><small>This value will be saved when you submit the form</small></p>
+                        </div>
+                        
+                        <button type="button" id="calculateBMI" class="btn btn-secondary" style="margin-top: 10px;">
+                            <i class="fas fa-calculator"></i> Calculate BMI
+                        </button>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="measurementDate">Measurement Date</label>
+                        <input type="date" id="measurementDate" required>
+                    </div>
+                    
+                    <button type="submit" class="btn"><i class="fas fa-save"></i> Save BMI Record</button>
+                    <button type="button" id="clearForm" class="btn btn-secondary"><i class="fas fa-eraser"></i> Clear Form</button>
+                </form>
+                
+                <div class="students-list">
+                    <h3 class="section-title">Recent Entries</h3>
+                    <div id="studentsContainer">
+                        <!-- Student entries will appear here -->
+                        <p id="noStudentsMessage">No student records yet. Add a student using the form above.</p>
+                    </div>
+                </div>
+            </section>
+            
+            <section class="analytics-section">
+                <h2 class="section-title"><i class="fas fa-chart-bar"></i> Health Analytics</h2>
+                
+                <div class="stats-container">
+                    <div class="stat-card">
+                        <div class="stat-label">Total Students</div>
+                        <div class="stat-value" id="totalStudents">0</div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-label">Normal BMI</div>
+                        <div class="stat-value" id="normalStudents">0</div>
+                    </div>
+                    
+                    <div class="stat-card moderate-risk">
+                        <div class="stat-label">Overweight</div>
+                        <div class="stat-value" id="overweightStudents">0</div>
+                    </div>
+                    
+                    <div class="stat-card at-risk">
+                        <div class="stat-label">Obese / Underweight</div>
+                        <div class="stat-value" id="atRiskStudents">0</div>
+                    </div>
+                </div>
+                
+                <h3 class="section-title">Students Needing Health Assistance</h3>
+                <div id="atRiskContainer">
+                    <p id="noRiskMessage">No students currently identified as needing health assistance.</p>
+                </div>
+                
+                <div class="bmi-categories">
+                    <div class="bmi-category">
+                        <div class="category-color underweight-color"></div>
+                        <span>Underweight (&lt; 18.5)</span>
+                    </div>
+                    <div class="bmi-category">
+                        <div class="category-color normal-color"></div>
+                        <span>Normal (18.5 - 24.9)</span>
+                    </div>
+                    <div class="bmi-category">
+                        <div class="category-color overweight-color"></div>
+                        <span>Overweight (25 - 29.9)</span>
+                    </div>
+                    <div class="bmi-category">
+                        <div class="category-color obese-color"></div>
+                        <span>Obese (≥ 30)</span>
+                    </div>
+                </div>
+                
+                <div class="actions">
+                    <button id="exportData" class="btn btn-success"><i class="fas fa-file-export"></i> Export Health Report</button>
+                    <button id="clearData" class="btn btn-secondary"><i class="fas fa-trash-alt"></i> Clear All Data</button>
+                </div>
+            </section>
+        </div>
+        
+        <footer>
+            <p>BMI Tracker System for Schools | Note: This tool is for educational purposes. Always consult with healthcare professionals for medical advice.</p>
+            <p>BMI categories are based on standard adult ranges. For children and teens, BMI percentiles should be used for accurate assessment.</p>
+        </footer>
+    </div>
+
+    <script>
+        // Initialize student data from localStorage or empty array
+        let students = JSON.parse(localStorage.getItem('studentBMIData')) || [];
+        
+        // Set default date to today
+        document.getElementById('measurementDate').valueAsDate = new Date();
+        
+        // Load existing data on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            renderStudentList();
+            updateAnalytics();
+            
+            // Set up input method toggle
+            setupInputMethodToggle();
+            
+            // Set up BMI calculation
+            document.getElementById('calculateBMI').addEventListener('click', calculateBMIFromHeightWeight);
+            
+            // Auto-calculate when height/weight values change
+            document.getElementById('studentHeight').addEventListener('input', calculateBMIFromHeightWeight);
+            document.getElementById('studentWeight').addEventListener('input', calculateBMIFromHeightWeight);
+        });
+        
+        // Toggle between BMI input and height/weight input
+        function setupInputMethodToggle() {
+            const bmiRadio = document.getElementById('inputMethodBMI');
+            const hwRadio = document.getElementById('inputMethodHW');
+            const bmiSection = document.getElementById('bmiInputSection');
+            const hwSection = document.getElementById('heightWeightInputSection');
+            
+            bmiRadio.addEventListener('change', function() {
+                if (this.checked) {
+                    bmiSection.classList.remove('hidden');
+                    hwSection.classList.add('hidden');
+                    
+                    // Make BMI field required
+                    document.getElementById('studentBMI').required = true;
+                    
+                    // Clear height/weight fields
+                    document.getElementById('studentHeight').value = '';
+                    document.getElementById('studentWeight').value = '';
+                }
+            });
+            
+            hwRadio.addEventListener('change', function() {
+                if (this.checked) {
+                    bmiSection.classList.add('hidden');
+                    hwSection.classList.remove('hidden');
+                    
+                    // Make BMI field not required
+                    document.getElementById('studentBMI').required = false;
+                    
+                    // Clear BMI field
+                    document.getElementById('studentBMI').value = '';
+                }
+            });
+        }
+        
+        // Calculate BMI from height and weight
+        function calculateBMIFromHeightWeight() {
+            const heightInput = document.getElementById('studentHeight');
+            const weightInput = document.getElementById('studentWeight');
+            const bmiContainer = document.getElementById('calculatedBMIContainer');
+            const calculatedBMIElement = document.getElementById('calculatedBMI');
+            const calculatedCategoryElement = document.getElementById('calculatedCategory');
+            
+            const height = parseFloat(heightInput.value);
+            const weight = parseFloat(weightInput.value);
+            
+            // Validate inputs
+            if (!height || !weight || height <= 0 || weight <= 0) {
+                bmiContainer.classList.add('hidden');
+                return;
+            }
+            
+            // Convert height from cm to meters
+            const heightInMeters = height / 100;
+            
+            // Calculate BMI: weight (kg) / height (m)²
+            const bmi = weight / (heightInMeters * heightInMeters);
+            const roundedBMI = Math.round(bmi * 10) / 10;
+            
+            // Get BMI category
+            const category = getBMICategory(roundedBMI);
+            const categoryClass = getBMICategoryClass(roundedBMI);
+            
+            // Update display
+            calculatedBMIElement.textContent = roundedBMI;
+            calculatedBMIElement.className = `bmi-display ${categoryClass}`;
+            calculatedCategoryElement.textContent = category;
+            calculatedCategoryElement.className = categoryClass;
+            
+            // Show the calculated BMI container
+            bmiContainer.classList.remove('hidden');
+            
+            return roundedBMI;
+        }
+        
+        // Handle form submission
+        document.getElementById('bmiForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Get form values
+            const name = document.getElementById('studentName').value.trim();
+            const school = document.getElementById('schoolName').value.trim();
+            const grade = document.getElementById('studentGrade').value;
+            const section = document.getElementById('studentSection').value.trim();
+            const age = parseInt(document.getElementById('studentAge').value);
+            const gender = document.getElementById('studentGender').value;
+            const date = document.getElementById('measurementDate').value;
+            
+            // Determine which input method is selected
+            const inputMethodBMI = document.getElementById('inputMethodBMI').checked;
+            let bmi;
+            
+            if (inputMethodBMI) {
+                // Direct BMI input
+                bmi = parseFloat(document.getElementById('studentBMI').value);
+            } else {
+                // Height/weight input - calculate BMI
+                bmi = calculateBMIFromHeightWeight();
+                
+                // Validate that BMI was calculated
+                if (!bmi || bmi <= 0) {
+                    alert("Please enter valid height and weight values, then click 'Calculate BMI'");
+                    return;
+                }
+            }
+            
+            // Validate BMI value
+            if (!bmi || bmi < 10 || bmi > 50) {
+                alert("Please enter a valid BMI value (between 10 and 50)");
+                return;
+            }
+            
+            // Create student object
+            const student = {
+                id: Date.now(), // Simple ID based on timestamp
+                name: name,
+                school: school,
+                grade: grade,
+                section: section,
+                age: age,
+                gender: gender,
+                bmi: bmi,
+                date: date,
+                bmiCategory: getBMICategory(bmi)
+            };
+            
+            // Add to students array
+            students.push(student);
+            
+            // Save to localStorage
+            localStorage.setItem('studentBMIData', JSON.stringify(students));
+            
+            // Update UI
+            renderStudentList();
+            updateAnalytics();
+            
+            // Reset form
+            this.reset();
+            document.getElementById('inputMethodBMI').checked = true;
+            document.getElementById('bmiInputSection').classList.remove('hidden');
+            document.getElementById('heightWeightInputSection').classList.add('hidden');
+            document.getElementById('calculatedBMIContainer').classList.add('hidden');
+            document.getElementById('studentBMI').required = true;
+            document.getElementById('measurementDate').valueAsDate = new Date();
+            
+            // Show success feedback
+            alert(`Successfully added ${name}'s BMI record!`);
+        });
+        
+        // Clear form button
+        document.getElementById('clearForm').addEventListener('click', function() {
+            document.getElementById('bmiForm').reset();
+            document.getElementById('inputMethodBMI').checked = true;
+            document.getElementById('bmiInputSection').classList.remove('hidden');
+            document.getElementById('heightWeightInputSection').classList.add('hidden');
+            document.getElementById('calculatedBMIContainer').classList.add('hidden');
+            document.getElementById('studentBMI').required = true;
+            document.getElementById('measurementDate').valueAsDate = new Date();
+        });
+        
+        // Clear all data button
+        document.getElementById('clearData').addEventListener('click', function() {
+            if (confirm("Are you sure you want to clear all student data? This action cannot be undone.")) {
+                students = [];
+                localStorage.removeItem('studentBMIData');
+                renderStudentList();
+                updateAnalytics();
+            }
+        });
+        
+        // Export data button
+        document.getElementById('exportData').addEventListener('click', function() {
+            if (students.length === 0) {
+                alert("No data to export.");
+                return;
+            }
+            
+            // Create CSV content
+            let csvContent = "data:text/csv;charset=utf-8,";
+            csvContent += "ID,Name,School,Grade,Section,Age,Gender,BMI,Category,Date\n";
+            
+            students.forEach(student => {
+                const row = [
+                    student.id,
+                    student.name,
+                    student.school,
+                    student.grade,
+                    student.section,
+                    student.age,
+                    student.gender,
+                    student.bmi,
+                    student.bmiCategory,
+                    student.date
+                ].join(",");
+                
+                csvContent += row + "\n";
+            });
+            
+            // Create download link
+            const encodedUri = encodeURI(csvContent);
+            const link = document.createElement("a");
+            link.setAttribute("href", encodedUri);
+            link.setAttribute("download", "student_bmi_data.csv");
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            
+            alert("Data exported successfully as CSV file!");
+        });
+        
+        // Function to determine BMI category
+        function getBMICategory(bmi) {
+            if (bmi < 18.5) return "Underweight";
+            if (bmi >= 18.5 && bmi < 25) return "Normal";
+            if (bmi >= 25 && bmi < 30) return "Overweight";
+            return "Obese";
+        }
+        
+        // Function to get BMI category class for styling
+        function getBMICategoryClass(bmi) {
+            if (bmi < 18.5) return "bmi-underweight";
+            if (bmi >= 18.5 && bmi < 25) return "bmi-normal";
+            if (bmi >= 25 && bmi < 30) return "bmi-overweight";
+            return "bmi-obese";
+        }
+        
+        // Function to determine if a student needs health assistance
+        function needsHealthAssistance(bmiCategory) {
+            return bmiCategory === "Underweight" || bmiCategory === "Obese";
+        }
+        
+        // Function to render the student list
+        function renderStudentList() {
+            const container = document.getElementById('studentsContainer');
+            const noStudentsMessage = document.getElementById('noStudentsMessage');
+            
+            if (students.length === 0) {
+                container.innerHTML = '<p id="noStudentsMessage">No student records yet. Add a student using the form above.</p>';
+                return;
+            }
+            
+            // Clear container
+            container.innerHTML = '';
+            
+            // Sort by most recent first
+            const sortedStudents = [...students].sort((a, b) => b.id - a.id);
+            
+            // Show only the 5 most recent entries
+            const recentStudents = sortedStudents.slice(0, 5);
+            
+            recentStudents.forEach(student => {
+                const bmiClass = getBMICategoryClass(student.bmi);
+                const isAtRisk = needsHealthAssistance(student.bmiCategory);
+                const isModerateRisk = student.bmiCategory === "Overweight";
+                
+                const studentCard = document.createElement('div');
+                studentCard.className = 'student-card';
+                if (isAtRisk) studentCard.classList.add('at-risk');
+                if (isModerateRisk) studentCard.classList.add('moderate-risk');
+                
+                studentCard.innerHTML = `
+                    <div class="student-info">
+                        <h4>${student.name} (Grade ${student.grade}, ${student.section})</h4>
+                        <p>${student.school} | ${student.age} yrs, ${student.gender} | ${student.date}</p>
+                    </div>
+                    <div class="bmi-value ${bmiClass}">${student.bmi} <small>(${student.bmiCategory})</small></div>
+                `;
+                
+                container.appendChild(studentCard);
+            });
+            
+            // Show message if there are more entries
+            if (students.length > 5) {
+                const moreMsg = document.createElement('p');
+                moreMsg.textContent = `... and ${students.length - 5} more students`;
+                moreMsg.style.textAlign = 'center';
+                moreMsg.style.color = '#666';
+                moreMsg.style.marginTop = '10px';
+                container.appendChild(moreMsg);
+            }
+        }
+        
+        // Function to update analytics
+        function updateAnalytics() {
+            // Update counters
+            document.getElementById('totalStudents').textContent = students.length;
+            
+            const normalCount = students.filter(s => s.bmiCategory === "Normal").length;
+            const overweightCount = students.filter(s => s.bmiCategory === "Overweight").length;
+            const atRiskCount = students.filter(s => needsHealthAssistance(s.bmiCategory)).length;
+            
+            document.getElementById('normalStudents').textContent = normalCount;
+            document.getElementById('overweightStudents').textContent = overweightCount;
+            document.getElementById('atRiskStudents').textContent = atRiskCount;
+            
+            // Update at-risk students list
+            const atRiskContainer = document.getElementById('atRiskContainer');
+            const atRiskStudents = students.filter(s => needsHealthAssistance(s.bmiCategory));
+            
+            if (atRiskStudents.length === 0) {
+                atRiskContainer.innerHTML = '<p id="noRiskMessage">No students currently identified as needing health assistance.</p>';
+                return;
+            }
+            
+            // Clear container
+            atRiskContainer.innerHTML = '';
+            
+            // Add at-risk students
+            atRiskStudents.forEach(student => {
+                const bmiClass = getBMICategoryClass(student.bmi);
+                const isUnderweight = student.bmiCategory === "Underweight";
+                
+                const studentCard = document.createElement('div');
+                studentCard.className = 'student-card at-risk';
+                
+                studentCard.innerHTML = `
+                    <div class="student-info">
+                        <h4>${student.name} (Grade ${student.grade}, ${student.section})</h4>
+                        <p>${student.school} | ${student.age} yrs, ${student.gender} | BMI: ${student.bmi} | Measured: ${student.date}</p>
+                        <p><strong>Health Priority:</strong> ${isUnderweight ? 'Nutritional support needed' : 'Weight management program recommended'}</p>
+                    </div>
+                    <div class="bmi-value ${bmiClass}">${student.bmiCategory}</div>
+                `;
+                
+                atRiskContainer.appendChild(studentCard);
+            });
+        }
+        
+        // Add some sample data for demonstration
+        function addSampleData() {
+            if (students.length === 0) {
+                const sampleStudents = [
+                    {name: "Alex Johnson", school: "Central High School", grade: "9", section: "A", age: 14, gender: "male", bmi: 16.2, date: "2023-10-15", bmiCategory: "Underweight"},
+                    {name: "Maria Garcia", school: "Lincoln Middle School", grade: "7", section: "B", age: 12, gender: "female", bmi: 22.5, date: "2023-10-16", bmiCategory: "Normal"},
+                    {name: "Jamie Smith", school: "Westside Elementary", grade: "5", section: "C", age: 10, gender: "other", bmi: 28.7, date: "2023-10-12", bmiCategory: "Overweight"},
+                    {name: "Taylor Brown", school: "Central High School", grade: "11", section: "A", age: 16, gender: "female", bmi: 31.2, date: "2023-10-10", bmiCategory: "Obese"},
+                    {name: "Jordan Lee", school: "Northside Academy", grade: "8", section: "B", age: 13, gender: "male", bmi: 19.8, date: "2023-10-18", bmiCategory: "Normal"}
+                ];
+                
+                sampleStudents.forEach((student, index) => {
+                    student.id = Date.now() + index;
+                    students.push(student);
+                });
+                
+                localStorage.setItem('studentBMIData', JSON.stringify(students));
+                renderStudentList();
+                updateAnalytics();
+            }
+        }
+        
+        // Add sample data on first load for demo purposes
+        addSampleData();
+    </script>
+</body>
+</html>
