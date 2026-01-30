@@ -1,14 +1,16 @@
-<!--plugins-->
-	<link href="<?php echo WEB_ROOT; ?>student-portal/assets/plugins/vectormap/jquery-jvectormap-2.0.2.css" rel="stylesheet"/>
-	<link href="<?php echo WEB_ROOT; ?>student-portal/assets/plugins/simplebar/css/simplebar.css" rel="stylesheet" />
-	<link href="<?php echo WEB_ROOT; ?>student-portal/assets/plugins/perfect-scrollbar/css/perfect-scrollbar.css" rel="stylesheet" />
-	<link href="<?php echo WEB_ROOT; ?>student-portal/assets/plugins/metismenu/css/metisMenu.min.css" rel="stylesheet" />
-	<!-- loader-->
-	<link href="<?php echo WEB_ROOT; ?>student-portal/assets/css/pace.min.css" rel="stylesheet" />
-	<script src="<?php echo WEB_ROOT; ?>student-portal/assets/js/pace.min.js"></script>
-	<!-- Bootstrap CSS -->
-	<link href="<?php echo WEB_ROOT; ?>student-portal/assets/css/bootstrap.min.css" rel="stylesheet">
-	<link href="<?php echo WEB_ROOT; ?>student-portal/assets/css/bootstrap-extended.css" rel="stylesheet">
-	<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
-	<link href="<?php echo WEB_ROOT; ?>student-portal/assets/css/app.css" rel="stylesheet">
-	<link href="<?php echo WEB_ROOT; ?>student-portal/assets/css/icons.css" rel="stylesheet">
+<!-- Favicon and Touch Icons  -->
+<link rel="shortcut icon" href="<?php echo WEB_ROOT; ?>assets/images/depedSilay.png">
+<link rel="apple-touch-icon-precomposed" href="<?php echo WEB_ROOT; ?>assets/images/depedSilay.png">
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
+
+<!-- offline bootstrap -->
+<link rel="stylesheet" href="<?php echo WEB_ROOT;?>assets/css/bootstrap/bootstrap.css">
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+
+<link rel="stylesheet" href="<?php echo WEB_ROOT; ?>home/css/main.css">
+<link rel="stylesheet" href="<?php echo WEB_ROOT; ?>student-portal/assets/css/nav.css">
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
