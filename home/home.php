@@ -130,15 +130,15 @@ $isLoggedIn = isset($_SESSION['user_id']);
             </div>
 
             <!-- Health & Wellness -->
-            <div class="col-6 col-sm-4 col-md-3 col-lg-2">
-                <div class="app-icon-wrapper text-center">
+            <div class="col-6 col-sm-4 col-md-3 col-lg-2"> 
+                <a href="<?php echo WEB_ROOT; ?>health/" class="app-icon-wrapper text-center">
                     <div class="app-icon mb-2" style="background: linear-gradient(135deg, #ec4899, #f472b6);">
                         <svg class="bi bi-robot" width="2em" height="2em">
                             <use xlink:href="<?php echo WEB_ROOT; ?>assets/home-svg/health.svg" />
                         </svg>
                     </div>
                     <h6 class="app-icon-title mb-0">Health & Wellness</h6>
-                </div>
+</a>
             </div>
 
             <!-- Disaster Safety -->
@@ -155,14 +155,14 @@ $isLoggedIn = isset($_SESSION['user_id']);
 
             <!-- Learning Games -->
             <div class="col-6 col-sm-4 col-md-3 col-lg-2">
-                <div class="app-icon-wrapper text-center">
+             <a href="<?php echo WEB_ROOT; ?>ai_list/" class="app-icon-wrapper text-center">
                     <div class="app-icon mb-2" style="background: linear-gradient(135deg, #6366f1, #818cf8);">
                         <svg class="bi bi-robot" width="2em" height="2em">
                             <use xlink:href="<?php echo WEB_ROOT; ?>assets/home-svg/learning.svg" />
                         </svg>
                     </div>
-                    <h6 class="app-icon-title mb-0">Learning Games</h6>
-                </div>
+                    <h6 class="app-icon-title mb-0">AI TOOLS</h6>
+</a>
             </div>
 
             <!-- Science Explorer -->

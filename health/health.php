@@ -27,6 +27,7 @@
             --youper-color: #8b5cf6;
             --chatgpt-health-color: #10b981;
             --myfitnesspal-color: #f59e0b;
+            --bmi-button-color: #ef4444;
         }
 
         body {
@@ -118,6 +119,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
+            position: relative;
         }
 
         .health-icons {
@@ -144,6 +146,37 @@
         .icon-mood { background-color: var(--youper-color); }
         .icon-ai { background-color: var(--chatgpt-health-color); }
         .icon-fitness { background-color: var(--myfitnesspal-color); }
+
+        /* BMI Tracker Button - Added at the top */
+        .bmi-tracker-button {
+            position: absolute;
+            top: 0;
+            right: 0;
+            background-color: var(--bmi-button-color);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 30px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(239, 68, 68, 0.2);
+            z-index: 10;
+        }
+
+        .bmi-tracker-button:hover {
+            background-color: #dc2626;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(239, 68, 68, 0.3);
+        }
+
+        .bmi-tracker-button i {
+            font-size: 1.1rem;
+        }
 
         /* AI Health Cards Section */
         .ai-section {
@@ -544,6 +577,14 @@
             .footer-links {
                 gap: 30px;
             }
+            
+            .bmi-tracker-button {
+                position: relative;
+                top: auto;
+                right: auto;
+                margin-top: 20px;
+                align-self: center;
+            }
         }
 
         @media (max-width: 768px) {
@@ -592,6 +633,9 @@
                 min-width: 140px;
             }
         }
+        a{
+ text-decoration:none;
+        }
     </style>
 </head>
 <body>
@@ -605,6 +649,12 @@
                     <p>Discover how AI is revolutionizing mental and physical health support. From daily emotional support to fitness tracking, these intelligent assistants are here to help you achieve your wellness goals.</p>
                 </div>
                 <div class="header-visual">
+                    <!-- BMI Tracker Button - Added here as requested -->
+                    <a href="<?= WEB_ROOT;?>bmi_tracker/" class="bmi-tracker-button">
+                        <i class="fas fa-weight-scale"></i>
+                        BMI Tracker
+</a>
+                    
                     <div class="health-icons">
                         <div class="health-icon icon-mental">
                             <i class="fas fa-brain"></i>
@@ -851,7 +901,7 @@
             <div class="cta-content">
                 <h2>Start Your Wellness Journey Today</h2>
                 <p>Whether you're looking for emotional support, mood insights, health information, or fitness tracking, there's an AI health assistant designed to support your specific wellness goals. Find your perfect digital health companion.</p>
-                <a href="#ai-cards" class="cta-button">Explore Health Assistants</a>
+                <a href="<?= WEB_ROOT;?>bmi_tracker/" class="cta-button">Explore Health Assistants</a>
             </div>
         </div>
     </section>
@@ -900,66 +950,37 @@
         </div>
     </footer>
 
+    <!-- JavaScript for BMI Tracker Button -->
     <script>
-        // Add interactivity to the cards
+        // Wait for the DOM to be fully loaded
         document.addEventListener('DOMContentLoaded', function() {
-            const cards = document.querySelectorAll('.ai-card');
+            // Get the BMI Tracker button
+            const bmiButton = document.getElementById('bmiTrackerBtn');
             
-            cards.forEach(card => {
-                card.addEventListener('click', function(e) {
-                    // Don't trigger on app link clicks
-                    if (!e.target.classList.contains('app-link') && !e.target.parentElement.classList.contains('app-link')) {
-                        // Remove active class from all cards
-                        cards.forEach(c => c.classList.remove('active'));
-                        // Add active class to clicked card
-                        this.classList.add('active');
-                        
-                        // Scroll to comparison table
-                        document.querySelector('.comparison-section').scrollIntoView({
-                            behavior: 'smooth'
-                        });
+            // Add click event listener to the BMI Tracker button
+           
+            
+            // Also make the main CTA button work (in case someone clicks it)
+          
+          
+            
+            // Optional: Add smooth scrolling for anchor links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href');
+                    if (targetId !== '#') {
+                        const targetElement = document.querySelector(targetId);
+                        if (targetElement) {
+                            targetElement.scrollIntoView({
+                                behavior: 'smooth'
+                            });
+                        }
                     }
                 });
-            });
-            
-            // Add hover effect to table rows
-            const tableRows = document.querySelectorAll('tbody tr');
-            tableRows.forEach(row => {
-                row.addEventListener('mouseenter', function() {
-                    this.style.backgroundColor = 'rgba(0, 0, 0, 0.02)';
-                });
-                
-                row.addEventListener('mouseleave', function() {
-                    this.style.backgroundColor = '';
-                });
-            });
-            
-            // CTA button scroll to cards
-            document.querySelector('.cta-button').addEventListener('click', function(e) {
-                e.preventDefault();
-                document.querySelector('.ai-cards').scrollIntoView({
-                    behavior: 'smooth'
-                });
-            });
-            
-            // Focus cards animation
-            const focusCards = document.querySelectorAll('.focus-card');
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.style.opacity = '1';
-                        entry.target.style.transform = 'translateY(0)';
-                    }
-                });
-            }, { threshold: 0.1 });
-            
-            focusCards.forEach(card => {
-                card.style.opacity = '0';
-                card.style.transform = 'translateY(20px)';
-                card.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
-                observer.observe(card);
             });
         });
     </script>
+
 </body>
 </html>

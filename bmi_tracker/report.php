@@ -1,6 +1,6 @@
 <?php
 // report.php
-require_once 'config.php';
+require_once '../global-library/database.php';
 
 // Function to calculate BMI category - FIXED TYPO HERE
 function getBMICategory($bmi) {
@@ -40,31 +40,37 @@ if (isset($_GET['export']) && $_GET['export'] == 'csv') {
     $filter_category = $_GET['category'] ?? '';
     
     // Build query with filters
-    $query = "SELECT *, 
-              CASE 
+    $query = "SELECT *,
+              CASE
                 WHEN bmi_category = 'Normal' THEN 'Healthy'
                 WHEN bmi_category = 'Overweight' THEN 'Needs Monitoring'
                 ELSE 'Needs Attention'
               END as health_status
               FROM students WHERE 1=1";
-    
+
+    $params = [];
+
     if (!empty($filter_school)) {
-        $query .= " AND school = '" . mysqli_real_escape_string($conn, $filter_school) . "'";
+        $query .= " AND school = ?";
+        $params[] = $filter_school;
     }
-    
+
     if (!empty($filter_grade)) {
-        $query .= " AND grade = '" . mysqli_real_escape_string($conn, $filter_grade) . "'";
+        $query .= " AND grade = ?";
+        $params[] = $filter_grade;
     }
-    
+
     if (!empty($filter_category)) {
-        $query .= " AND bmi_category = '" . mysqli_real_escape_string($conn, $filter_category) . "'";
+        $query .= " AND bmi_category = ?";
+        $params[] = $filter_category;
     }
-    
+
     $query .= " ORDER BY school, grade, section, name";
-    
-    $result = mysqli_query($conn, $query);
-    
-    while ($row = mysqli_fetch_assoc($result)) {
+
+    $stmt = $conn->prepare($query);
+    $stmt->execute($params);
+
+    while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
         fputcsv($output, $row);
     }
     
@@ -98,14 +104,8 @@ if (!empty($filter_category)) {
 
 $query .= " ORDER BY school, grade, section, name";
 
-$stmt = mysqli_prepare($conn, $query);
-if (!empty($params)) {
-    $types = str_repeat('s', count($params));
-    mysqli_stmt_bind_param($stmt, $types, ...$params);
-}
-
-mysqli_stmt_execute($stmt);
-$result = mysqli_stmt_get_result($stmt);
+$stmt = $conn->prepare($query);
+$stmt->execute($params);
 $students = [];
 $summary = [
     'total' => 0,
@@ -119,19 +119,19 @@ $summary = [
     'grades' => []
 ];
 
-while ($row = mysqli_fetch_assoc($result)) {
+while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
     $students[] = $row;
     $summary['total']++;
-    
+
     // Count by category
     $summary['categories'][$row['bmi_category']]++;
-    
+
     // Count by school
     if (!isset($summary['schools'][$row['school']])) {
         $summary['schools'][$row['school']] = 0;
     }
     $summary['schools'][$row['school']]++;
-    
+
     // Count by grade
     if (!isset($summary['grades'][$row['grade']])) {
         $summary['grades'][$row['grade']] = 0;
@@ -141,35 +141,33 @@ while ($row = mysqli_fetch_assoc($result)) {
 
 // Get unique values for filters
 $schools_query = "SELECT DISTINCT school FROM students ORDER BY school";
-$schools_result = mysqli_query($conn, $schools_query);
+$schools_result = $conn->query($schools_query);
 $all_schools = [];
-while ($row = mysqli_fetch_assoc($schools_result)) {
+while ($row = $schools_result->fetch(PDO::FETCH_ASSOC)) {
     $all_schools[] = $row['school'];
 }
 
 $grades_query = "SELECT DISTINCT grade FROM students ORDER BY grade";
-$grades_result = mysqli_query($conn, $grades_query);
+$grades_result = $conn->query($grades_query);
 $all_grades = [];
-while ($row = mysqli_fetch_assoc($grades_result)) {
+while ($row = $grades_result->fetch(PDO::FETCH_ASSOC)) {
     $all_grades[] = $row['grade'];
 }
 
 // Get detailed analytics for each school
 $schoolAnalytics = [];
 foreach ($all_schools as $school) {
-    $analyticsQuery = "SELECT 
+    $analyticsQuery = "SELECT
         COUNT(*) as total,
         SUM(CASE WHEN bmi_category = 'Underweight' THEN 1 ELSE 0 END) as underweight,
         SUM(CASE WHEN bmi_category = 'Normal' THEN 1 ELSE 0 END) as normal,
         SUM(CASE WHEN bmi_category = 'Overweight' THEN 1 ELSE 0 END) as overweight,
         SUM(CASE WHEN bmi_category = 'Obese' THEN 1 ELSE 0 END) as obese
         FROM students WHERE school = ?";
-    
-    $stmt = mysqli_prepare($conn, $analyticsQuery);
-    mysqli_stmt_bind_param($stmt, 's', $school);
-    mysqli_stmt_execute($stmt);
-    $analyticsResult = mysqli_stmt_get_result($stmt);
-    $schoolAnalytics[$school] = mysqli_fetch_assoc($analyticsResult);
+
+    $stmt = $conn->prepare($analyticsQuery);
+    $stmt->execute([$school]);
+    $schoolAnalytics[$school] = $stmt->fetch(PDO::FETCH_ASSOC);
 }
 
 // Get detailed analytics for each BMI category
@@ -180,16 +178,16 @@ $categoryAnalytics = [
     'Obese' => ['min_age' => 100, 'max_age' => 0, 'avg_age' => 0, 'count' => 0]
 ];
 
-$categoryQuery = "SELECT bmi_category, 
-    MIN(age) as min_age, 
-    MAX(age) as max_age, 
+$categoryQuery = "SELECT bmi_category,
+    MIN(age) as min_age,
+    MAX(age) as max_age,
     AVG(age) as avg_age,
     COUNT(*) as count
-    FROM students 
+    FROM students
     GROUP BY bmi_category";
-$categoryResult = mysqli_query($conn, $categoryQuery);
+$categoryResult = $conn->query($categoryQuery);
 
-while ($row = mysqli_fetch_assoc($categoryResult)) {
+while ($row = $categoryResult->fetch(PDO::FETCH_ASSOC)) {
     $category = $row['bmi_category'];
     $categoryAnalytics[$category] = [
         'min_age' => $row['min_age'],

@@ -1,6 +1,6 @@
 <?php
 // index.php
-require_once 'config.php';
+require_once '../global-library/database.php';
 
 // Function to calculate BMI category - FIXED TYPO HERE
 function getBMICategory($bmi) {
@@ -25,20 +25,20 @@ function needsHealthAssistance($bmiCategory) {
 
 // Handle form submission
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $name = mysqli_real_escape_string($conn, $_POST['studentName']);
-    $school = mysqli_real_escape_string($conn, $_POST['schoolName']);
-    $grade = mysqli_real_escape_string($conn, $_POST['studentGrade']);
-    $section = mysqli_real_escape_string($conn, $_POST['studentSection']);
+    $name = $_POST['studentName'];
+    $school = $_POST['schoolName'];
+    $grade = $_POST['studentGrade'];
+    $section = $_POST['studentSection'];
     $age = intval($_POST['studentAge']);
-    $gender = mysqli_real_escape_string($conn, $_POST['studentGender']);
-    $date = mysqli_real_escape_string($conn, $_POST['measurementDate']);
-    
+    $gender = $_POST['studentGender'];
+    $date = $_POST['measurementDate'];
+
     // Determine input method
     $inputMethod = $_POST['inputMethod'] ?? 'bmi';
     $bmi = 0;
     $height = null;
     $weight = null;
-    
+
     if ($inputMethod == 'bmi') {
         // Direct BMI input
         $bmi = floatval($_POST['studentBMI']);
@@ -46,40 +46,34 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         // Height/weight input
         $height = floatval($_POST['studentHeight']);
         $weight = floatval($_POST['studentWeight']);
-        
+
         // Calculate BMI if height and weight are provided
         if ($height > 0 && $weight > 0) {
             $heightInMeters = $height / 100;
             $bmi = $weight / ($heightInMeters * $heightInMeters);
         }
     }
-    
+
     // Get BMI category - USING CORRECTED FUNCTION
     $bmiCategory = getBMICategory($bmi);
-    
+
     // Debug: Check what's being calculated
     error_log("BMI Calculation Debug: BMI=$bmi, Category=$bmiCategory, Height=$height, Weight=$weight");
-    
+
     // Validate BMI value
     if ($bmi < 10 || $bmi > 50) {
         $errorMessage = "Please enter a valid BMI value (between 10 and 50)";
     } else {
-        // Insert into database
-        $query = "INSERT INTO students (name, school, grade, section, age, gender, height, weight, bmi, bmi_category, measurement_date) 
-                  VALUES ('$name', '$school', '$grade', '$section', $age, '$gender', ";
-        
-        if ($height !== null) {
-            $query .= "$height, $weight, ";
-        } else {
-            $query .= "NULL, NULL, ";
-        }
-        
-        $query .= "$bmi, '$bmiCategory', '$date')";
-        
-        if (mysqli_query($conn, $query)) {
+        // Insert into database using PDO
+        $query = "INSERT INTO students (name, school, grade, section, age, gender, height, weight, bmi, bmi_category, measurement_date)
+                  VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+
+        try {
+            $stmt = $conn->prepare($query);
+            $stmt->execute([$name, $school, $grade, $section, $age, $gender, $height, $weight, $bmi, $bmiCategory, $date]);
             $successMessage = "Student record added successfully!";
-        } else {
-            $errorMessage = "Error: " . mysqli_error($conn);
+        } catch (PDOException $e) {
+            $errorMessage = "Error: " . $e->getMessage();
         }
     }
 }
@@ -89,22 +83,22 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 if (isset($_GET['export']) && $_GET['export'] == 'csv') {
     header('Content-Type: text/csv; charset=utf-8');
     header('Content-Disposition: attachment; filename=student_bmi_data_' . date('Y-m-d') . '.csv');
-    
+
     $output = fopen('php://output', 'w');
-    
+
     // Add UTF-8 BOM for Excel compatibility
     fwrite($output, "\xEF\xBB\xBF");
-    
+
     // Headers
     fputcsv($output, array('ID', 'Name', 'School', 'Grade', 'Section', 'Age', 'Gender', 'Height (cm)', 'Weight (kg)', 'BMI', 'Category', 'Measurement Date', 'Created At'));
-    
+
     $query = "SELECT * FROM students ORDER BY created_at DESC";
-    $result = mysqli_query($conn, $query);
-    
-    while ($row = mysqli_fetch_assoc($result)) {
+    $stmt = $conn->query($query);
+
+    while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
         fputcsv($output, $row);
     }
-    
+
     fclose($output);
     exit();
 }
@@ -112,14 +106,14 @@ if (isset($_GET['export']) && $_GET['export'] == 'csv') {
 // Handle data deletion
 if (isset($_GET['delete_all']) && $_GET['delete_all'] == 'true') {
     if (isset($_GET['confirm']) && $_GET['confirm'] == 'true') {
-        mysqli_query($conn, "DELETE FROM students");
+        $conn->exec("DELETE FROM students");
         $successMessage = "All data has been cleared!";
     }
 }
 
 // Fetch all students for display
 $query = "SELECT * FROM students ORDER BY created_at DESC";
-$result = mysqli_query($conn, $query);
+$stmt = $conn->query($query);
 $students = [];
 $totalStudents = 0;
 $normalCount = 0;
@@ -127,10 +121,10 @@ $overweightCount = 0;
 $atRiskCount = 0;
 $atRiskStudents = [];
 
-while ($row = mysqli_fetch_assoc($result)) {
+while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
     $students[] = $row;
     $totalStudents++;
-    
+
     if ($row['bmi_category'] == 'Normal') $normalCount++;
     if ($row['bmi_category'] == 'Overweight') $overweightCount++;
     if (needsHealthAssistance($row['bmi_category'])) {
@@ -144,9 +138,9 @@ $recentStudents = array_slice($students, 0, 5);
 
 // Get school distribution for quick stats
 $schoolsQuery = "SELECT school, COUNT(*) as count FROM students GROUP BY school ORDER BY count DESC";
-$schoolsResult = mysqli_query($conn, $schoolsQuery);
+$schoolsResult = $conn->query($schoolsQuery);
 $schoolStats = [];
-while ($row = mysqli_fetch_assoc($schoolsResult)) {
+while ($row = $schoolsResult->fetch(PDO::FETCH_ASSOC)) {
     $schoolStats[] = $row;
 }
 ?>
