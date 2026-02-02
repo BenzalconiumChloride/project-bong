@@ -118,7 +118,7 @@ $isLoggedIn = isset($_SESSION['user_id']);
             </div>
 
             <!-- Math Adventures -->
-            <div class="col-6 col-sm-4 col-md-3 col-lg-2">
+            <div class="col-6 col-sm-4 col-md-3 col-lg-2" onclick="checkSessionAndRedirect('Math Adventiures', 'math')">
                 <div class="app-icon-wrapper text-center">
                     <div class="app-icon bg-success mb-2">
                         <svg class="bi bi-robot" width="2em" height="2em">

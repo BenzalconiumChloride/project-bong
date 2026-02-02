@@ -1,0 +1,1022 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Farming Tools | Smart Agriculture Solutions</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-green: #16a34a;
+            --secondary-green: #22c55e;
+            --dark-green: #15803d;
+            --earth-brown: #92400e;
+            --sky-blue: #0ea5e9;
+            --sun-yellow: #f59e0b;
+            --light-beige: #fef3c7;
+            --light-green: #dcfce7;
+            --dark-color: #1f2937;
+            --gray-color: #6b7280;
+            --farmpro-color: #16a34a;
+            --agrio-color: #0ea5e9;
+            --plantix-color: #f59e0b;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            color: var(--dark-color);
+            background-color: #ffffff;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            line-height: 1.2;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header - Farm Theme */
+        header {
+            background: linear-gradient(rgba(22, 163, 74, 0.9), rgba(22, 163, 74, 0.95)), 
+                        url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M0,0 L100,0 L100,100 Z" fill="%2316a34a"/></svg>');
+            background-size: cover;
+            color: white;
+            padding: 50px 0 80px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header-content {
+            text-align: center;
+            max-width: 900px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+
+        .tagline {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            padding: 8px 22px;
+            border-radius: 50px;
+            font-weight: 500;
+            margin-bottom: 20px;
+            font-size: 0.9rem;
+        }
+
+        .header-content h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+        }
+
+        .header-content p {
+            font-size: 1.2rem;
+            opacity: 0.95;
+            margin-bottom: 30px;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .header-icons {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin-top: 40px;
+            flex-wrap: wrap;
+        }
+
+        .header-icon {
+            text-align: center;
+        }
+
+        .icon-circle {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.15);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 15px;
+            font-size: 32px;
+            color: white;
+            transition: transform 0.3s ease;
+        }
+
+        .header-icon:hover .icon-circle {
+            transform: translateY(-5px);
+        }
+
+        /* AI Tools Section */
+        .tools-section {
+            padding: 80px 0 60px;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .section-title h2 {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            color: var(--dark-green);
+        }
+
+        .section-title p {
+            color: var(--gray-color);
+            max-width: 700px;
+            margin: 0 auto;
+            font-size: 1.1rem;
+        }
+
+        /* 3 Column Grid Layout */
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+
+        .tool-card {
+            background: white;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+            border: 1px solid #e5e7eb;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+
+        .tool-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .tool-badge {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: var(--primary-green);
+            color: white;
+            padding: 6px 15px;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            z-index: 2;
+        }
+
+        .plantix .tool-badge {
+            background: var(--plantix-color);
+        }
+
+        .tool-card-header {
+            padding: 30px 30px 20px;
+            position: relative;
+        }
+
+        .tool-icon {
+            width: 70px;
+            height: 70px;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+            font-size: 30px;
+            color: white;
+        }
+
+        .farmpro .tool-icon { background-color: var(--farmpro-color); }
+        .agrio .tool-icon { background-color: var(--agrio-color); }
+        .plantix .tool-icon { background-color: var(--plantix-color); }
+
+        .tool-card h3 {
+            font-size: 1.6rem;
+            margin-bottom: 10px;
+        }
+
+        .tool-card p {
+            color: var(--gray-color);
+            font-size: 1rem;
+        }
+
+        .tool-card-body {
+            padding: 0 30px 30px;
+            flex-grow: 1;
+        }
+
+        .tool-features {
+            list-style: none;
+            margin-bottom: 25px;
+        }
+
+        .tool-features li {
+            padding: 10px 0;
+            display: flex;
+            align-items: flex-start;
+        }
+
+        .tool-features i {
+            margin-right: 12px;
+            font-size: 0.9rem;
+            margin-top: 4px;
+            flex-shrink: 0;
+        }
+
+        .farmpro .tool-features i { color: var(--farmpro-color); }
+        .agrio .tool-features i { color: var(--agrio-color); }
+        .plantix .tool-features i { color: var(--plantix-color); }
+
+        .tool-links {
+            display: flex;
+            gap: 15px;
+            margin-top: auto;
+        }
+
+        .tool-link {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 12px;
+            border-radius: 10px;
+            font-weight: 500;
+            font-size: 0.9rem;
+            text-decoration: none;
+            transition: all 0.2s ease;
+            text-align: center;
+        }
+
+        .farmpro .tool-link { 
+            background-color: rgba(22, 163, 74, 0.1);
+            color: var(--farmpro-color);
+        }
+        .farmpro .tool-link:hover {
+            background-color: var(--farmpro-color);
+            color: white;
+        }
+
+        .agrio .tool-link { 
+            background-color: rgba(14, 165, 233, 0.1);
+            color: var(--agrio-color);
+        }
+        .agrio .tool-link:hover {
+            background-color: var(--agrio-color);
+            color: white;
+        }
+
+        .plantix .tool-link { 
+            background-color: rgba(245, 158, 11, 0.1);
+            color: var(--plantix-color);
+        }
+        .plantix .tool-link:hover {
+            background-color: var(--plantix-color);
+            color: white;
+        }
+
+        /* Features Section */
+        .features-section {
+            background-color: #f9fafb;
+            padding: 80px 0;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+        }
+
+        .feature-card {
+            background: white;
+            border-radius: 16px;
+            padding: 30px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-8px);
+        }
+
+        .feature-icon {
+            width: 80px;
+            height: 80px;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            font-size: 32px;
+            color: white;
+        }
+
+        .feature-monitoring { background: var(--farmpro-color); }
+        .feature-disease { background: var(--agrio-color); }
+        .feature-diagnosis { background: var(--plantix-color); }
+
+        .feature-card h3 {
+            font-size: 1.4rem;
+            margin-bottom: 10px;
+        }
+
+        /* Comparison Table */
+        .comparison-section {
+            padding: 80px 0;
+        }
+
+        .comparison-table {
+            overflow-x: auto;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            border: 1px solid #e5e7eb;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+        }
+
+        thead {
+            background: linear-gradient(90deg, var(--primary-green) 0%, var(--dark-green) 100%);
+            color: white;
+        }
+
+        th {
+            padding: 20px 15px;
+            text-align: left;
+            font-weight: 500;
+        }
+
+        .feature-name {
+            width: 200px;
+            font-weight: 500;
+        }
+
+        td {
+            padding: 18px 15px;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        .farmpro-bg { background-color: rgba(22, 163, 74, 0.05); }
+        .agrio-bg { background-color: rgba(14, 165, 233, 0.05); }
+        .plantix-bg { background-color: rgba(245, 158, 11, 0.05); }
+
+        /* Testimonials */
+        .testimonials-section {
+            background-color: var(--light-beige);
+            padding: 80px 0;
+        }
+
+        .testimonial-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .testimonial-card {
+            background: white;
+            border-radius: 16px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            position: relative;
+        }
+
+        .testimonial-card:before {
+            content: '"';
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            font-size: 60px;
+            color: var(--light-green);
+            font-family: Georgia, serif;
+            line-height: 1;
+        }
+
+        .testimonial-text {
+            font-style: italic;
+            margin-bottom: 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+        }
+
+        .author-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: var(--light-green);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            font-size: 20px;
+            color: var(--dark-green);
+        }
+
+        .author-info h4 {
+            font-size: 1rem;
+            margin-bottom: 5px;
+        }
+
+        .author-info p {
+            font-size: 0.9rem;
+            color: var(--gray-color);
+        }
+
+        /* CTA Section */
+        .cta-section {
+            padding: 80px 0;
+            text-align: center;
+            background: linear-gradient(135deg, var(--light-green) 0%, #bbf7d0 100%);
+        }
+
+        .cta-content {
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .cta-content h2 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            color: var(--dark-green);
+        }
+
+        .cta-content p {
+            color: var(--gray-color);
+            margin-bottom: 40px;
+            font-size: 1.1rem;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: linear-gradient(90deg, var(--primary-green) 0%, var(--dark-green) 100%);
+            color: white;
+            padding: 16px 40px;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 20px rgba(22, 163, 74, 0.2);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 30px rgba(22, 163, 74, 0.3);
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--dark-green);
+            color: white;
+            padding: 60px 0 30px;
+        }
+
+        .footer-content {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            margin-bottom: 40px;
+        }
+
+        .footer-logo {
+            flex: 1;
+            min-width: 300px;
+            margin-bottom: 30px;
+        }
+
+        .footer-logo h3 {
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+        }
+
+        .footer-logo p {
+            color: #d1d5db;
+            max-width: 300px;
+        }
+
+        .footer-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 50px;
+        }
+
+        .footer-column h4 {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            color: #f9fafb;
+        }
+
+        .footer-column ul {
+            list-style: none;
+        }
+
+        .footer-column li {
+            margin-bottom: 12px;
+        }
+
+        .footer-column a {
+            color: #d1d5db;
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+
+        .footer-column a:hover {
+            color: white;
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid #374151;
+            color: #9ca3af;
+            font-size: 0.9rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 992px) {
+            .tools-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .footer-links {
+                gap: 30px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header-content h1 {
+                font-size: 2.2rem;
+            }
+            
+            .section-title h2 {
+                font-size: 2rem;
+            }
+            
+            .tools-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .tool-card-header, .tool-card-body {
+                padding: 25px;
+            }
+            
+            .header-icons {
+                gap: 20px;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .header-content h1 {
+                font-size: 1.8rem;
+            }
+            
+            .section-title h2 {
+                font-size: 1.8rem;
+            }
+            
+            .cta-content h2 {
+                font-size: 2rem;
+            }
+            
+            .tool-links {
+                flex-direction: column;
+            }
+            
+            .footer-column {
+                min-width: 140px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header Section -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="tagline">Smart Agriculture Solutions</div>
+                <h1>AI Farming Tools for Modern Agriculture</h1>
+                <p>Transform your farming practices with AI-powered tools for crop monitoring, disease detection, and farm management. Increase yield, reduce losses, and farm smarter.</p>
+                
+                <div class="header-icons">
+                    <div class="header-icon">
+                        <div class="icon-circle">
+                            <i class="fas fa-tractor"></i>
+                        </div>
+                        <p>Farm Management</p>
+                    </div>
+                    <div class="header-icon">
+                        <div class="icon-circle">
+                            <i class="fas fa-seedling"></i>
+                        </div>
+                        <p>Crop Health</p>
+                    </div>
+                    <div class="header-icon">
+                        <div class="icon-circle">
+                            <i class="fas fa-microscope"></i>
+                        </div>
+                        <p>Disease Diagnosis</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- AI Tools Section -->
+    <section class="tools-section container">
+        <div class="section-title">
+            <h2>AI Farming Tools</h2>
+            <p>Three powerful AI tools designed to address different aspects of modern farming - from comprehensive farm management to instant plant disease diagnosis.</p>
+        </div>
+        
+        <div class="tools-grid">
+            <!-- FarmPro.pro Card -->
+            <div class="tool-card farmpro">
+                <div class="tool-card-header">
+                    <div class="tool-icon">
+                        <i class="fas fa-tractor"></i>
+                    </div>
+                    <h3>FarmPro.pro</h3>
+                    <p>Comprehensive farm management platform with AI-driven insights for optimizing agricultural operations.</p>
+                </div>
+                <div class="tool-card-body">
+                    <ul class="tool-features">
+                        <li><i class="fas fa-check-circle"></i> Complete farm management system</li>
+                        <li><i class="fas fa-check-circle"></i> Crop monitoring and yield prediction</li>
+                        <li><i class="fas fa-check-circle"></i> Resource optimization (water, fertilizer, labor)</li>
+                        <li><i class="fas fa-check-circle"></i> Market analysis and price forecasting</li>
+                        <li><i class="fas fa-check-circle"></i> Financial planning and reporting</li>
+                    </ul>
+                    <div class="tool-links">
+                        <a href="#" class="tool-link"><i class="fas fa-globe"></i> Web Platform</a>
+                        <a href="#" class="tool-link"><i class="fas fa-mobile-alt"></i> Mobile App</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Agrio Card -->
+            <div class="tool-card agrio">
+                <div class="tool-card-header">
+                    <div class="tool-icon">
+                        <i class="fas fa-seedling"></i>
+                    </div>
+                    <h3>Agrio</h3>
+                    <p>AI-powered crop protection platform for early pest and disease detection using smartphone cameras.</p>
+                </div>
+                <div class="tool-card-body">
+                    <ul class="tool-features">
+                        <li><i class="fas fa-check-circle"></i> Early pest and disease detection</li>
+                        <li><i class="fas fa-check-circle"></i> Photo-based diagnosis with smartphone camera</li>
+                        <li><i class="fas fa-check-circle"></i> Treatment recommendations</li>
+                        <li><i class="fas fa-check-circle"></i> Weather-based disease forecasting</li>
+                        <li><i class="fas fa-check-circle"></i> Integration with spraying equipment</li>
+                    </ul>
+                    <div class="tool-links">
+                        <a href="#" class="tool-link"><i class="fab fa-android"></i> Android</a>
+                        <a href="#" class="tool-link"><i class="fab fa-apple"></i> iOS</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Plantix Card -->
+            <div class="tool-card plantix">
+                <div class="tool-badge">Best for Free AI Diagnosis</div>
+                <div class="tool-card-header">
+                    <div class="tool-icon">
+                        <i class="fas fa-leaf"></i>
+                    </div>
+                    <h3>Plantix</h3>
+                    <p>Free AI-powered plant doctor that diagnoses crop diseases, pests, and nutrient deficiencies from photos.</p>
+                </div>
+                <div class="tool-card-body">
+                    <ul class="tool-features">
+                        <li><i class="fas fa-check-circle"></i> Free plant disease diagnosis</li>
+                        <li><i class="fas fa-check-circle"></i> Instant identification from photos</li>
+                        <li><i class="fas fa-check-circle"></i> Treatment and prevention advice</li>
+                        <li><i class="fas fa-check-circle"></i> Community of farmers and experts</li>
+                        <li><i class="fas fa-check-circle"></i> Available in multiple languages</li>
+                    </ul>
+                    <div class="tool-links">
+                        <a href="#" class="tool-link"><i class="fab fa-google-play"></i> Google Play</a>
+                        <a href="#" class="tool-link"><i class="fas fa-globe"></i> Web App</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features-section">
+        <div class="container">
+            <div class="section-title">
+                <h2>Key Farming Challenges Solved</h2>
+                <p>AI tools address the most pressing issues in modern agriculture through technology and data-driven insights.</p>
+            </div>
+            
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon feature-monitoring">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3>Farm Monitoring</h3>
+                    <p>Track crop growth, soil conditions, and resource usage in real-time for informed decision making.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon feature-disease">
+                        <i class="fas fa-bug"></i>
+                    </div>
+                    <h3>Disease Detection</h3>
+                    <p>Early identification of pests and diseases to prevent spread and minimize crop losses.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon feature-diagnosis">
+                        <i class="fas fa-diagnoses"></i>
+                    </div>
+                    <h3>Instant Diagnosis</h3>
+                    <p>AI-powered plant doctors provide immediate identification and treatment recommendations.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Comparison Table -->
+    <section class="comparison-section container">
+        <div class="section-title">
+            <h2>Tool Comparison</h2>
+            <p>Compare features across the three leading AI farming platforms to find the right tool for your needs.</p>
+        </div>
+        
+        <div class="comparison-table">
+            <table>
+                <thead>
+                    <tr>
+                        <th class="feature-name">Feature</th>
+                        <th>FarmPro.pro</th>
+                        <th>Agrio</th>
+                        <th>Plantix</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="feature-name">Primary Focus</td>
+                        <td class="farmpro-bg">Farm Management</td>
+                        <td class="agrio-bg">Crop Protection</td>
+                        <td class="plantix-bg">Plant Diagnosis</td>
+                    </tr>
+                    <tr>
+                        <td class="feature-name">Pricing Model</td>
+                        <td class="farmpro-bg">Subscription</td>
+                        <td class="agrio-bg">Freemium</td>
+                        <td class="plantix-bg"><strong>Free</strong></td>
+                    </tr>
+                    <tr>
+                        <td class="feature-name">AI Diagnosis</td>
+                        <td class="farmpro-bg">Basic</td>
+                        <td class="agrio-bg"><strong>Advanced</strong></td>
+                        <td class="plantix-bg"><strong>Advanced</strong></td>
+                    </tr>
+                    <tr>
+                        <td class="feature-name">Platform Availability</td>
+                        <td class="farmpro-bg">Web & Mobile</td>
+                        <td class="agrio-bg">Mobile Focus</td>
+                        <td class="plantix-bg">Mobile & Web</td>
+                    </tr>
+                    <tr>
+                        <td class="feature-name">Crop Coverage</td>
+                        <td class="farmpro-bg">All major crops</td>
+                        <td class="agrio-bg">Major crops</td>
+                        <td class="plantix-bg">50+ crops</td>
+                    </tr>
+                    <tr>
+                        <td class="feature-name">Best For</td>
+                        <td class="farmpro-bg">Commercial farms</td>
+                        <td class="agrio-bg">Early disease detection</td>
+                        <td class="plantix-bg">Small farmers & gardeners</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="testimonials-section">
+        <div class="container">
+            <div class="section-title">
+                <h2>Farmer Success Stories</h2>
+                <p>See how farmers worldwide are benefiting from AI farming tools.</p>
+            </div>
+            
+            <div class="testimonial-grid">
+                <div class="testimonial-card">
+                    <div class="testimonial-text">
+                        "Plantix helped me identify a fungal infection in my tomato crop that I couldn't diagnose myself. The treatment advice saved my entire harvest."
+                    </div>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <div class="author-info">
+                            <h4>Rajesh Kumar</h4>
+                            <p>Vegetable Farmer, India</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="testimonial-card">
+                    <div class="testimonial-text">
+                        "FarmPro.pro's yield prediction feature helped me optimize my planting schedule and increased my wheat yield by 22% this season."
+                    </div>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <div class="author-info">
+                            <h4>Maria Rodriguez</h4>
+                            <p>Wheat Farmer, Argentina</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="testimonial-card">
+                    <div class="testimonial-text">
+                        "Agrio's early detection system alerted me to a pest infestation before it spread. I treated only affected areas, saving on pesticide costs."
+                    </div>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <div class="author-info">
+                            <h4>James Wilson</h4>
+                            <p>Orchard Owner, USA</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="container">
+            <div class="cta-content">
+                <h2>Start Farming Smarter Today</h2>
+                <p>Whether you're managing a large commercial farm or a small family plot, AI farming tools can help you increase yield, reduce losses, and make better agricultural decisions.</p>
+                <a href="#tools-grid" class="cta-button">Explore Farming Tools</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <h3>AI Farming Hub</h3>
+                    <p>Connecting farmers with AI-powered agricultural tools for smarter farming and better yields.</p>
+                </div>
+                <div class="footer-links">
+                    <div class="footer-column">
+                        <h4>Farming Tools</h4>
+                        <ul>
+                            <li><a href="#">FarmPro.pro</a></li>
+                            <li><a href="#">Agrio</a></li>
+                            <li><a href="#">Plantix</a></li>
+                            <li><a href="#">More Tools</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h4>Resources</h4>
+                        <ul>
+                            <li><a href="#">Farming Guides</a></li>
+                            <li><a href="#">Disease Database</a></li>
+                            <li><a href="#">Crop Calendar</a></li>
+                            <li><a href="#">Market Prices</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h4>Connect</h4>
+                        <ul>
+                            <li><a href="#">About Us</a></li>
+                            <li><a href="#">Contact</a></li>
+                            <li><a href="#">Farmers Forum</a></li>
+                            <li><a href="#">Blog</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2023 AI Farming Hub. This is a demonstration site for educational purposes. Always consult agricultural experts for critical farming decisions.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Add interactivity to the cards
+        document.addEventListener('DOMContentLoaded', function() {
+            const cards = document.querySelectorAll('.tool-card');
+            
+            cards.forEach(card => {
+                card.addEventListener('click', function(e) {
+                    // Don't trigger on tool link clicks
+                    if (!e.target.classList.contains('tool-link') && !e.target.parentElement.classList.contains('tool-link')) {
+                        // Remove active class from all cards
+                        cards.forEach(c => c.classList.remove('active'));
+                        // Add active class to clicked card
+                        this.classList.add('active');
+                        
+                        // Scroll to comparison table
+                        document.querySelector('.comparison-section').scrollIntoView({
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+            
+            // Add hover effect to table rows
+            const tableRows = document.querySelectorAll('tbody tr');
+            tableRows.forEach(row => {
+                row.addEventListener('mouseenter', function() {
+                    this.style.backgroundColor = 'rgba(0, 0, 0, 0.02)';
+                });
+                
+                row.addEventListener('mouseleave', function() {
+                    this.style.backgroundColor = '';
+                });
+            });
+            
+            // CTA button scroll to cards
+            document.querySelector('.cta-button').addEventListener('click', function(e) {
+                e.preventDefault();
+                document.querySelector('.tools-grid').scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+            
+            // Animate feature cards on scroll
+            const featureCards = document.querySelectorAll('.feature-card');
+            const testimonialCards = document.querySelectorAll('.testimonial-card');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, { threshold: 0.1 });
+            
+            featureCards.forEach(card => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(20px)';
+                card.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+                observer.observe(card);
+            });
+            
+            testimonialCards.forEach(card => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(20px)';
+                card.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+                observer.observe(card);
+            });
+            
+            // Header icons animation
+            const headerIcons = document.querySelectorAll('.header-icon');
+            headerIcons.forEach((icon, index) => {
+                icon.style.animationDelay = `${index * 0.2}s`;
+            });
+        });
+    </script>
+</body>
+</html>
