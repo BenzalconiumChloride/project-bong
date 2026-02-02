@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-white sticky-top">
     <div class="container">
-        <a class="navbar-brand d-flex align-items-center" href="#">
+        <a class="navbar-brand d-flex align-items-center" href="<?= WEB_ROOT; ?>">
             <div class="logo-box me-2">
                 <i class="bi bi-stars text-white"></i>
             </div>

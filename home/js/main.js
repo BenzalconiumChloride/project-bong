@@ -47,3 +47,64 @@ function sendMessage() {
         messagesContainer.scrollTop = messagesContainer.scrollHeight;
     }
 }
+
+function scrollToFeatures() {
+    const heroSection = document.getElementById('hero');
+    const featuresSection = document.getElementById('features');
+    
+    // Add parallax effect to hero
+    heroSection.classList.add('scrolling');
+    
+    // Smooth scroll to features
+    setTimeout(() => {
+        featuresSection.scrollIntoView({ 
+            behavior: 'smooth',
+            block: 'start'
+        });
+    }, 100);
+    
+    // Fade in features content
+    setTimeout(() => {
+        document.querySelector('.features-content').classList.add('visible');
+    }, 800);
+}
+
+// Intersection Observer for scroll effects
+const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.target.id === 'hero' && !entry.isIntersecting) {
+            entry.target.classList.add('scrolling');
+        } else if (entry.target.id === 'hero' && entry.isIntersecting) {
+            entry.target.classList.remove('scrolling');
+        }
+    });
+}, { threshold: 0.5 });
+
+observer.observe(document.getElementById('hero'));
+
+// Generate dynamic stars
+const cosmosLayer = document.querySelector('.bong-cosmos-layer');
+for (let i = 0; i < 100; i++) {
+    const star = document.createElement('div');
+    star.className = 'bong-star';
+    star.style.width = Math.random() * 3 + 1 + 'px';
+    star.style.height = star.style.width;
+    star.style.left = Math.random() * 100 + '%';
+    star.style.top = Math.random() * 100 + '%';
+    star.style.animationDelay = Math.random() * 3 + 's';
+    cosmosLayer.appendChild(star);
+}
+
+function scrollToFeatures() {
+    const heroSection = document.getElementById('hero');
+    const featuresSection = document.getElementById('features');
+    
+    featuresSection.scrollIntoView({ 
+        behavior: 'smooth',
+        block: 'start'
+    });
+    
+    setTimeout(() => {
+        document.querySelector('.features-content').classList.add('visible');
+    }, 800);
+}

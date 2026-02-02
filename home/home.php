@@ -41,45 +41,47 @@ $isLoggedIn = isset($_SESSION['user_id']);
 
 <link rel="stylesheet" href="<?php echo WEB_ROOT; ?>home/css/login.css">
 
+<section class="bong-hero-stage" id="hero">
+    <!-- Cosmic background layer -->
+    <div class="bong-cosmos-layer">
+        <!-- Generate stars dynamically -->
+    </div>
 
-<section class="py-5">
-    <div class="container py-lg-5">
-        <div class="row align-items-center g-5">
-            <div class="col-lg-6">
-                <span class="badge bg-primary bg-opacity-10 text-primary px-3 py-2 mb-3">
-                    For Grades 1-12
-                </span>
-                <h1 class="display-3 fw-bold mb-4">
-                    Learning Made
-                    <span class="gradient-text">Fun & Easy</span>
-                </h1>
-                <p class="lead text-muted mb-4">
-                    Your all-in-one platform for interactive learning, educational games, and smart tools to help students excel from Grade 1 to Grade 12.
-                </p>
-                <div class="d-flex flex-column flex-sm-row gap-3">
-                    <button class="btn btn-gradient btn-lg rounded-3 px-4" onclick="alert('Creative Hub coming soon!')">
-                        Start Learning
-                        <i class="bi bi-chevron-right ms-2"></i>
-                    </button>
-                    <button class="btn btn-outline-secondary btn-lg rounded-3 px-4">
-                        Watch Demo
-                    </button>
-                </div>
-            </div>
-            <div class="col-lg-6">
-                <div class="position-relative">
-                    <div class="hero-blur-bg"></div>
-                    <img src="https://images.unsplash.com/photo-1719159381916-062fa9f435a6?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=800"
-                        alt="Students learning"
-                        class="img-fluid hero-image">
-                </div>
-            </div>
+    <!-- Energy orbs -->
+    <div class="bong-energy-orb"></div>
+    <div class="bong-energy-orb"></div>
+    <div class="bong-energy-orb"></div>
+
+    <!-- Orbital rings -->
+    <div class="bong-orbit-ring"></div>
+    <div class="bong-orbit-ring"></div>
+    <div class="bong-orbit-ring"></div>
+
+    <!-- Corner accents -->
+    <div class="bong-corner-accent"></div>
+    <div class="bong-corner-accent"></div>
+    <div class="bong-corner-accent"></div>
+    <div class="bong-corner-accent"></div>
+
+    <!-- Scan line -->
+    <div class="bong-scanline"></div>
+
+    <!-- Main button with hexagonal frame -->
+    <div class="bong-ai-nexus">
+        <div class="bong-hex-frame">
+            <div class="bong-hex-side"></div>
+            <div class="bong-hex-side"></div>
+            <div class="bong-hex-side"></div>
         </div>
+        <button class="btn-ai" onclick="scrollToFeatures()">Ask bong AI</button>
     </div>
 </section>
 
+<!-- Spacer to push content down -->
+<div class="hero-spacer"></div>
+
 <!-- Features Section -->
-<section id="features" class="py-5 bg-white">
+<section id="features" class="py-5 bg-white features-overlay">
     <div class="container py-lg-5">
         <div class="text-center mb-5">
             <h2 class="display-4 fw-bold mb-3">
@@ -104,14 +106,14 @@ $isLoggedIn = isset($_SESSION['user_id']);
             </div>
 
             <!-- Literacy Games -->
-            <div class="col-6 col-sm-4 col-md-3 col-lg-2"  onclick="checkSessionAndRedirect('Literacy Games', 'literacy')">
+            <div class="col-6 col-sm-4 col-md-3 col-lg-2" onclick="checkSessionAndRedirect('Literacy Games', 'literacy')">
                 <div class="app-icon-wrapper text-center">
                     <div class="app-icon mb-2" style="background: linear-gradient(135deg, #9333ea, #c084fc);">
                         <svg class="bi bi-robot" width="2em" height="2em">
                             <use xlink:href="<?php echo WEB_ROOT; ?>assets/home-svg/literacy.svg" />
                         </svg>
                     </div>
-                    <h6 class="app-icon-title mb-0">Literacy Games</h6>
+                    <h6 class="app-icon-title mb-0">Literacy and Numeracy Games</h6>
                 </div>
             </div>
 
@@ -264,36 +266,15 @@ $isLoggedIn = isset($_SESSION['user_id']);
                     <p class="text-muted mb-4">
                         Access your assignments, games, and learning dashboard
                     </p>
-                    <button class="btn btn-gradient w-100 rounded-3 py-3">
+                    <a class="btn btn-gradient w-100 rounded-3 py-3" href="<?= WEB_ROOT; ?>student-portal/">
                         Access Portal
                         <i class="bi bi-chevron-right ms-2"></i>
-                    </button>
+                    </a>
                 </div>
             </div>
         </div>
     </div>
 </section>
-
-<!-- CTA Section -->
-<section class="py-5">
-    <div class="container py-lg-5">
-        <div class="gradient-bg rounded-4 p-5 text-center text-white">
-            <h2 class="display-4 fw-bold mb-4">Ready to Start Your Learning Journey?</h2>
-            <p class="lead mb-5 mx-auto opacity-90" style="max-width: 700px;">
-                Join thousands of students and teachers already using LearnHub to make education more engaging and effective.
-            </p>
-            <div class="d-flex flex-column flex-sm-row gap-3 justify-content-center">
-                <button class="btn btn-light btn-lg rounded-3 px-5 text-primary fw-semibold">
-                    Sign Up Free
-                </button>
-                <button class="btn btn-outline-light btn-lg rounded-3 px-5 fw-semibold">
-                    Learn More
-                </button>
-            </div>
-        </div>
-    </div>
-</section>
-
 
 <!-- modal -->
 <div class="modal fade" id="loginModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
@@ -302,98 +283,98 @@ $isLoggedIn = isset($_SESSION['user_id']);
             <div class="modal-header">
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-           
-                <div class="login-container">
 
-                    <div class="login-container-content p-4 p-sm-5">
+            <div class="login-container">
+
+                <div class="login-container-content p-4 p-sm-5">
 
 
-                        <?php if (!empty($data["message"]) && $data["message"] != 'success'): ?>
-                            <div class="product-message-error mb-3">
-                                <?= htmlspecialchars($data["message"]); ?>
-                            </div>
-                        <?php endif; ?>
-
-                        <!-- FORM WRAPPER with transition -->
-                        <div class="form-wrapper">
-                            <!-- LOGIN FORM -->
-                            <form id="loginForm" method="post" class="form-slide active">
-                                <div class="form-group-neu mb-3">
-                                    <label>Email</label>
-                                    <input type="email" name="txtEmailAddress" class="form-control"
-                                        value="<?= htmlspecialchars($data["emailAddress"]); ?>" required>
-                                </div>
-
-                                <div class="form-group-neu mb-4">
-                                    <label>Password</label>
-                                    <input type="password" name="txtPassword" class="form-control" required>
-                                </div>
-
-                                <button type="submit" name="login" class="btn btn-login">Login</button>
-
-                                <p class="text-center mt-3 switch-text">
-                                    No account? <a href="#" onclick="toggleForm(); return false;">Register</a>
-                                </p>
-                            </form>
-
-                            <!-- REGISTER FORM -->
-                            <form id="registerForm" method="post" class="form-slide">
-                                <div class="form-group-neu mb-3">
-                                    <label>First Name</label>
-                                    <input type="text" name="firstname" class="form-control" required>
-                                </div>
-
-                                <div class="form-group-neu mb-3">
-                                    <label>Last Name</label>
-                                    <input type="text" name="lastname" class="form-control" required>
-                                </div>
-
-                                <div class="form-group-neu mb-3">
-                                    <label>Email</label>
-                                    <input type="email" name="txtEmailAddress" class="form-control" required>
-                                </div>
-
-                                <div class="form-group-neu mb-4">
-                                    <label>Password</label>
-                                    <input type="password" name="txtPassword" class="form-control" required>
-                                </div>
-
-                                <div class="form-group-neu mb-4">
-                                    <label class="mb-3">I am a:</label>
-                                    <div class="radio-group">
-                                        <label class="radio-card">
-                                            <input type="radio" name="userType" value="student" checked>
-                                            <span class="radio-card-content">
-                                                <i class="bi bi-backpack-fill"></i>
-                                                <span class="radio-label">Student</span>
-                                            </span>
-                                        </label>
-                                        <label class="radio-card">
-                                            <input type="radio" name="userType" value="teacher">
-                                            <span class="radio-card-content">
-                                                <i class="bi bi-mortarboard-fill"></i>
-                                                <span class="radio-label">Teacher</span>
-                                            </span>
-                                        </label>
-                                    </div>
-                                </div>
-
-                                <button type="submit" name="register" class="btn btn-login">Register</button>
-
-                                <p class="text-center mt-3 switch-text">
-                                    Already have an account? <a href="#" onclick="toggleForm(); return false;">Login</a>
-                                </p>
-                            </form>
+                    <?php if (!empty($data["message"]) && $data["message"] != 'success'): ?>
+                        <div class="product-message-error mb-3">
+                            <?= htmlspecialchars($data["message"]); ?>
                         </div>
+                    <?php endif; ?>
 
+                    <!-- FORM WRAPPER with transition -->
+                    <div class="form-wrapper">
+                        <!-- LOGIN FORM -->
+                        <form id="loginForm" method="post" class="form-slide active">
+                            <div class="form-group-neu mb-3">
+                                <label>Email</label>
+                                <input type="email" name="txtEmailAddress" class="form-control"
+                                    value="<?= htmlspecialchars($data["emailAddress"]); ?>" required>
+                            </div>
+
+                            <div class="form-group-neu mb-4">
+                                <label>Password</label>
+                                <input type="password" name="txtPassword" class="form-control" required>
+                            </div>
+
+                            <button type="submit" name="login" class="btn btn-login">Login</button>
+
+                            <p class="text-center mt-3 switch-text">
+                                No account? <a href="#" onclick="toggleForm(); return false;">Register</a>
+                            </p>
+                        </form>
+
+                        <!-- REGISTER FORM -->
+                        <form id="registerForm" method="post" class="form-slide">
+                            <div class="form-group-neu mb-3">
+                                <label>First Name</label>
+                                <input type="text" name="firstname" class="form-control" required>
+                            </div>
+
+                            <div class="form-group-neu mb-3">
+                                <label>Last Name</label>
+                                <input type="text" name="lastname" class="form-control" required>
+                            </div>
+
+                            <div class="form-group-neu mb-3">
+                                <label>Email</label>
+                                <input type="email" name="txtEmailAddress" class="form-control" required>
+                            </div>
+
+                            <div class="form-group-neu mb-4">
+                                <label>Password</label>
+                                <input type="password" name="txtPassword" class="form-control" required>
+                            </div>
+
+                            <div class="form-group-neu mb-4">
+                                <label class="mb-3">I am a:</label>
+                                <div class="radio-group">
+                                    <label class="radio-card">
+                                        <input type="radio" name="userType" value="student" checked>
+                                        <span class="radio-card-content">
+                                            <i class="bi bi-backpack-fill"></i>
+                                            <span class="radio-label">Student</span>
+                                        </span>
+                                    </label>
+                                    <label class="radio-card">
+                                        <input type="radio" name="userType" value="teacher">
+                                        <span class="radio-card-content">
+                                            <i class="bi bi-mortarboard-fill"></i>
+                                            <span class="radio-label">Teacher</span>
+                                        </span>
+                                    </label>
+                                </div>
+                            </div>
+
+                            <button type="submit" name="register" class="btn btn-login">Register</button>
+
+                            <p class="text-center mt-3 switch-text">
+                                Already have an account? <a href="#" onclick="toggleForm(); return false;">Login</a>
+                            </p>
+                        </form>
                     </div>
+
                 </div>
+            </div>
         </div>
     </div>
 </div>
 
 <script>
-     // Check if user is logged in
+    // Check if user is logged in
     const isLoggedIn = <?php echo $isLoggedIn ? 'true' : 'false'; ?>;
 
     function checkSessionAndRedirect(appName, appUrl) {
@@ -419,7 +400,7 @@ $isLoggedIn = isset($_SESSION['user_id']);
             window.location.href = '<?php echo WEB_ROOT; ?>' + appUrl + '/';
         }
     }
-    
+
     let currentForm = 'login';
 
     function toggleForm() {
@@ -477,18 +458,18 @@ $isLoggedIn = isset($_SESSION['user_id']);
 
     // SweetAlert for successful registration
     <?php if (!empty($data["message"]) && $data["message"] == 'success'): ?>
-    Swal.fire({
-        icon: 'success',
-        title: 'Registration Successful!',
-        text: 'You may now login with your credentials.',
-        confirmButtonText: 'OK',
-        confirmButtonColor: '#667eea',
-        allowOutsideClick: false
-    }).then((result) => {
-        if (result.isConfirmed) {
-            // Switch to login form
-            toggleForm();
-        }
-    });
+        Swal.fire({
+            icon: 'success',
+            title: 'Registration Successful!',
+            text: 'You may now login with your credentials.',
+            confirmButtonText: 'OK',
+            confirmButtonColor: '#667eea',
+            allowOutsideClick: false
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // Switch to login form
+                toggleForm();
+            }
+        });
     <?php endif; ?>
 </script>

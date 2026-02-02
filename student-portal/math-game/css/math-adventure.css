@@ -1,0 +1,746 @@
+/* ============================================
+   MATH GAME - ENHANCED STYLES
+   Bootstrap-integrated, clean and modern
+   ============================================ */
+
+/* Header Section */
+
+
+h1 {
+    font-family: 'Fredoka One', cursive;
+    font-size: 3rem;
+    background: linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 12px;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+}
+
+.tagline {
+    color: #6b7280;
+    font-size: 1.125rem;
+    margin-bottom: 16px;
+    font-weight: 500;
+}
+
+/* Database Status Badge */
+.db-status {
+    display: inline-flex;
+    align-items: center;
+    padding: 8px 16px;
+    border-radius: 50px;
+    font-size: 0.875rem;
+    font-weight: 600;
+    margin-bottom: 12px;
+    transition: all 0.3s ease;
+}
+
+.db-connected {
+    background: #d1fae5;
+    color: #065f46;
+    border: 2px solid #a7f3d0;
+}
+
+.db-disconnected {
+    background: #fee2e2;
+    color: #991b1b;
+    border: 2px solid #fecaca;
+}
+
+/* Game Area Grid - Bootstrap Enhanced */
+.game-area {
+    display: grid;
+    gap: 24px;
+}
+
+@media (min-width: 992px) {
+    .game-area {
+        grid-template-columns: 320px 1fr;
+    }
+}
+
+/* Panels */
+.left-panel,
+.right-panel {
+    background: #f9fafb;
+    border-radius: 20px;
+    padding: 24px;
+    border: 2px solid #e5e7eb;
+    transition: all 0.3s ease;
+}
+
+.left-panel:hover,
+.right-panel:hover {
+    border-color: #d1d5db;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.left-panel {
+    border-left: 4px solid #ff6b6b;
+}
+
+/* Mobile Menu Toggle Button */
+.mobile-menu-toggle {
+    display: none;
+    width: 100%;
+    padding: 1rem 1.25rem;
+    background: linear-gradient(135deg, #ff5e62 0%, #ff9966 100%);
+    color: #ffffff;
+    border: none;
+    border-radius: 12px;
+    font-family: 'Fredoka One', cursive;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    margin-bottom: 1rem;
+    box-shadow: 0 4px 12px rgba(255, 94, 98, 0.25);
+    transition: all 0.3s ease;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+.mobile-menu-toggle:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(255, 94, 98, 0.35);
+}
+
+.mobile-menu-toggle .menu-icon {
+    transition: transform 0.3s ease;
+    font-size: 1.2rem;
+}
+
+.mobile-menu-toggle.active .menu-icon {
+    transform: rotate(180deg);
+}
+
+/* Mobile Menu Content */
+.mobile-menu-content {
+    overflow: hidden;
+    transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1), 
+                opacity 0.3s ease,
+                margin-bottom 0.3s ease;
+}
+
+.mobile-menu-content.collapsed {
+    max-height: 0 !important;
+    opacity: 0;
+    margin-bottom: 0 !important;
+}
+
+.mobile-menu-content.expanded {
+    max-height: 2000px;
+    opacity: 1;
+}
+
+.right-panel {
+    border-left: 4px solid #3b82f6;
+}
+
+/* Panel Titles */
+.panel-title {
+    font-family: 'Fredoka One', cursive;
+    font-size: 1.375rem;
+    color: #1f2937;
+    margin-bottom: 20px;
+    padding-bottom: 12px;
+    border-bottom: 2px dashed #e5e7eb;
+    font-weight: 600;
+}
+
+/* Game Type Buttons */
+.game-buttons {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+    margin-bottom: 24px;
+}
+
+.game-btn {
+    padding: 16px 12px;
+    background: linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 100%);
+    color: white;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    font-family: 'Fredoka One', cursive;
+    font-size: 0.9375rem;
+    font-weight: 600;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 4px 6px rgba(255, 107, 107, 0.2);
+    text-transform: capitalize;
+}
+
+.game-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(255, 107, 107, 0.3);
+}
+
+.game-btn:active {
+    transform: translateY(0);
+}
+
+.game-btn.active {
+    background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+    box-shadow: 0 6px 0 #d97706, 0 8px 12px rgba(251, 191, 36, 0.3);
+    transform: translateY(2px);
+}
+
+/* Difficulty Buttons */
+.difficulty-buttons {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+    margin-bottom: 24px;
+}
+
+.diff-btn {
+    padding: 14px 12px;
+    border: 2px solid transparent;
+    border-radius: 12px;
+    cursor: pointer;
+    font-family: 'Fredoka One', cursive;
+    font-size: 0.9375rem;
+    font-weight: 600;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    text-transform: capitalize;
+}
+
+.difficulty-easy {
+    background: linear-gradient(135deg, #6ee7b7 0%, #34d399 100%);
+    color: #064e3b;
+}
+
+.difficulty-medium {
+    background: linear-gradient(135deg, #fde68a 0%, #fbbf24 100%);
+    color: #78350f;
+}
+
+.difficulty-hard {
+    background: linear-gradient(135deg, #fca5a5 0%, #f87171 100%);
+    color: #7f1d1d;
+}
+
+.difficulty-expert {
+    background: linear-gradient(135deg, #c7d2fe 0%, #a5b4fc 100%);
+    color: #312e81;
+}
+
+.diff-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.diff-btn.active {
+    transform: scale(1.05);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+    border-color: rgba(0, 0, 0, 0.1);
+}
+
+/* Stats Section */
+.stats {
+    background: #ffffff;
+    border-radius: 16px;
+    padding: 20px;
+    margin-top: 24px;
+    border: 2px solid #e5e7eb;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.stat-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+    padding: 8px 0;
+    border-bottom: 1px solid #f3f4f6;
+    font-size: 0.9375rem;
+}
+
+.stat-row:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+}
+
+.stat-row strong {
+    color: #374151;
+    font-weight: 600;
+}
+
+.stat-row span {
+    color: #6b7280;
+    font-weight: 500;
+}
+
+/* Game Display Area */
+.game-display {
+    text-align: center;
+    padding: 48px 24px;
+    background: linear-gradient(135deg, #ffffff 0%, #f9fafb 100%);
+    border-radius: 20px;
+    border: 3px dashed #e5e7eb;
+    margin-bottom: 24px;
+    min-height: 450px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Math Problem Display */
+.math-problem {
+    font-size: 4.5rem;
+    font-weight: 700;
+    background: linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin: 24px 0;
+    font-family: 'Fredoka One', cursive;
+    letter-spacing: -1px;
+    line-height: 1.2;
+}
+
+/* Answer Input */
+.answer-input-container {
+    margin: 32px 0;
+}
+
+.answer-input {
+    padding: 16px 24px;
+    font-size: 2rem;
+    border: 3px solid #e5e7eb;
+    border-radius: 16px;
+    width: 100%;
+    max-width: 280px;
+    text-align: center;
+    background: #ffffff;
+    font-weight: 600;
+    color: #1f2937;
+    transition: all 0.3s ease;
+    font-family: 'Fredoka One', cursive;
+}
+
+.answer-input:focus {
+    outline: none;
+    border-color: #ff6b6b;
+    box-shadow: 0 0 0 4px rgba(255, 107, 107, 0.1);
+    background: #fff;
+}
+
+/* Feedback Messages */
+.feedback {
+    padding: 16px 24px;
+    border-radius: 12px;
+    margin: 24px auto;
+    font-weight: 600;
+    font-size: 1.125rem;
+    max-width: 400px;
+    animation: slideIn 0.3s ease;
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.correct {
+    background: linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%);
+    color: #065f46;
+    border: 2px solid #6ee7b7;
+}
+
+.incorrect {
+    background: linear-gradient(135deg, #fee2e2 0%, #fecaca 100%);
+    color: #991b1b;
+    border: 2px solid #fca5a5;
+}
+
+/* Control Buttons */
+.controls {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    align-items: center;
+    margin-top: 24px;
+    flex-wrap: wrap;
+}
+
+.control-btn {
+    padding: 14px 28px;
+    border: none;
+    border-radius: 50px;
+    font-family: 'Fredoka One', cursive;
+    font-size: 1.0625rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    color: white;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    text-transform: capitalize;
+}
+
+.submit-btn {
+    background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+}
+
+.submit-btn:hover {
+    background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+}
+
+.next-btn {
+    background: linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 100%);
+}
+
+.next-btn:hover {
+    background: linear-gradient(135deg, #ee5a6f 0%, #dc2626 100%);
+}
+
+.reset-btn {
+    background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+    color: #78350f;
+}
+
+.reset-btn:hover {
+    background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+}
+
+.control-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+}
+
+.control-btn:active {
+    transform: translateY(-1px);
+}
+
+/* Timer Container */
+.timer-container {
+    background: linear-gradient(135deg, #ffffff 0%, #f0f9ff 100%);
+    border-radius: 16px;
+    padding: 20px;
+    margin-top: 24px;
+    border: 2px solid #bfdbfe;
+    text-align: center;
+    box-shadow: 0 1px 3px rgba(59, 130, 246, 0.1);
+}
+
+.timer-text {
+    font-size: 0.875rem;
+    color: #3b82f6;
+    margin-bottom: 8px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.timer-value {
+    font-size: 2.25rem;
+    font-weight: 700;
+    color: #1e40af;
+    font-family: 'Fredoka One', cursive;
+    letter-spacing: -0.5px;
+}
+
+/* Navigation Buttons */
+.nav-buttons {
+    margin-top: 24px;
+    text-align: center;
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.nav-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12px 24px;
+    background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+    color: white;
+    text-decoration: none;
+    border-radius: 12px;
+    font-family: 'Fredoka One', cursive;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 4px 6px rgba(59, 130, 246, 0.2);
+    text-transform: capitalize;
+}
+
+.nav-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 16px rgba(59, 130, 246, 0.3);
+    text-decoration: none;
+    color: white;
+}
+
+.nav-btn.reading {
+    background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
+    box-shadow: 0 4px 6px rgba(139, 92, 246, 0.2);
+}
+
+.nav-btn.reading:hover {
+    box-shadow: 0 6px 16px rgba(139, 92, 246, 0.3);
+}
+
+.nav-btn.analytics {
+    background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+    box-shadow: 0 4px 6px rgba(245, 158, 11, 0.2);
+}
+
+.nav-btn.analytics:hover {
+    box-shadow: 0 6px 16px rgba(245, 158, 11, 0.3);
+}
+
+/* Additional Stats Cards */
+.additional-stats {
+    display: grid;
+    gap: 16px;
+    margin-top: 24px;
+}
+
+@media (min-width: 576px) {
+    .additional-stats {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (min-width: 1200px) {
+    .additional-stats {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
+.stat-card {
+    background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+    border-radius: 16px;
+    padding: 20px;
+    text-align: center;
+    color: white;
+    box-shadow: 0 4px 6px rgba(245, 158, 11, 0.2);
+    transition: all 0.3s ease;
+}
+
+.stat-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 16px rgba(245, 158, 11, 0.3);
+}
+
+.stat-card-value {
+    font-size: 2rem;
+    font-weight: 700;
+    font-family: 'Fredoka One', cursive;
+    margin-bottom: 4px;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.stat-card-label {
+    font-size: 0.875rem;
+    margin-top: 4px;
+    opacity: 0.95;
+    font-weight: 500;
+    text-transform: capitalize;
+}
+
+/* Responsive Adjustments - Bootstrap Breakpoints */
+
+/* Small devices (landscape phones, 576px and up) */
+@media (min-width: 576px) {
+    h1 {
+        font-size: 3.5rem;
+    }
+    
+    .math-problem {
+        font-size: 5rem;
+    }
+}
+
+/* Medium devices (tablets, 768px and up) */
+@media (max-width: 768px) {
+    .container {
+        padding: 24px;
+        border-radius: 16px;
+    }
+    
+    h1 {
+        font-size: 2.5rem;
+    }
+    
+    .game-area {
+        grid-template-columns: 1fr;
+    }
+    
+    /* Show mobile menu toggle button on tablets and below */
+    .mobile-menu-toggle {
+        display: flex;
+    }
+    
+    .math-problem {
+        font-size: 3.5rem;
+    }
+    
+    .answer-input {
+        font-size: 1.75rem;
+        max-width: 240px;
+    }
+    
+    .game-display {
+        min-height: 380px;
+        padding: 32px 20px;
+    }
+}
+
+/* Small devices (phones, less than 576px) */
+@media (max-width: 576px) {
+    .container {
+        padding: 16px;
+        border-radius: 12px;
+    }
+    
+    h1 {
+        font-size: 2rem;
+    }
+    
+    .game-buttons,
+    .difficulty-buttons {
+        grid-template-columns: 1fr;
+        gap: 10px;
+    }
+    
+    .math-problem {
+        font-size: 2.5rem;
+    }
+    
+    .answer-input {
+        width: 100%;
+        max-width: 200px;
+        font-size: 1.5rem;
+        padding: 12px 16px;
+    }
+    
+    .control-btn {
+        padding: 12px 20px;
+        font-size: 0.9375rem;
+    }
+    
+    .controls {
+        flex-direction: column;
+        width: 100%;
+    }
+    
+    .control-btn {
+        width: 100%;
+        max-width: 280px;
+    }
+    
+    .game-display {
+        min-height: 320px;
+        padding: 24px 16px;
+    }
+    
+    .stat-card-value {
+        font-size: 1.5rem;
+    }
+    
+    .timer-value {
+        font-size: 1.875rem;
+    }
+    
+    .nav-buttons {
+        flex-direction: column;
+    }
+    
+    .nav-btn {
+        width: 100%;
+        max-width: 280px;
+    }
+}
+
+/* Extra small devices (very small phones, less than 400px) */
+@media (max-width: 400px) {
+    h1 {
+        font-size: 1.75rem;
+    }
+    
+    .left-panel,
+    .right-panel {
+        padding: 16px;
+    }
+    
+    .panel-title {
+        font-size: 1.125rem;
+    }
+    
+    .math-problem {
+        font-size: 2rem;
+    }
+}
+
+/* Utility Classes */
+.text-gradient {
+    background: linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.shadow-sm {
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.shadow-md {
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.shadow-lg {
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* Loading State */
+.loading {
+    opacity: 0.6;
+    pointer-events: none;
+    cursor: not-allowed;
+}
+
+/* Disabled State */
+.disabled,
+[disabled] {
+    opacity: 0.5;
+    cursor: not-allowed;
+    pointer-events: none;
+}
+
+/* Focus Visible for Accessibility */
+.game-btn:focus-visible,
+.diff-btn:focus-visible,
+.control-btn:focus-visible,
+.nav-btn:focus-visible {
+    outline: 3px solid #3b82f6;
+    outline-offset: 2px;
+}
+
+/* Print Styles */
+@media print {
+    .controls,
+    .nav-buttons,
+    .game-buttons,
+    .difficulty-buttons {
+        display: none;
+    }
+    
+    .container {
+        box-shadow: none;
+    }
+}
